@@ -170,12 +170,6 @@ public:
     QHBoxLayout *horizontalLayout_15;
     QCheckBox *checkBox_8;
     QPushButton *C_Electric;
-    QWidget *layoutWidget6;
-    QHBoxLayout *horizontalLayout_44;
-    QHBoxLayout *horizontalLayout_43;
-    QCheckBox *checkBox_27;
-    QPushButton *Total_power_factor_;
-    QPushButton *testall;
     QWidget *layoutWidget_6;
     QHBoxLayout *horizontalLayout_45;
     QHBoxLayout *horizontalLayout_13;
@@ -187,8 +181,15 @@ public:
     QHBoxLayout *horizontalLayout_46;
     QCheckBox *checkBox_5;
     QPushButton *C_Voltage;
+    QWidget *widget;
+    QHBoxLayout *horizontalLayout_44;
+    QHBoxLayout *horizontalLayout_43;
+    QCheckBox *checkBox_27;
+    QPushButton *Total_power_factor_;
+    QCheckBox *checkBox_28;
+    QPushButton *testall;
     QGroupBox *extraSetting;
-    QWidget *layoutWidget7;
+    QWidget *layoutWidget6;
     QGridLayout *gridLayout;
     QCheckBox *autoNewLine;
     QCheckBox *doubleColor;
@@ -344,7 +345,7 @@ public:
         horizontalLayout_24->setObjectName(QString::fromUtf8("horizontalLayout_24"));
         checkBox_12 = new QCheckBox(layoutWidget1);
         checkBox_12->setObjectName(QString::fromUtf8("checkBox_12"));
-        checkBox_12->setChecked(true);
+        checkBox_12->setChecked(false);
 
         horizontalLayout_24->addWidget(checkBox_12);
 
@@ -361,7 +362,7 @@ public:
         horizontalLayout_25->setObjectName(QString::fromUtf8("horizontalLayout_25"));
         checkBox_13 = new QCheckBox(layoutWidget1);
         checkBox_13->setObjectName(QString::fromUtf8("checkBox_13"));
-        checkBox_13->setChecked(true);
+        checkBox_13->setChecked(false);
 
         horizontalLayout_25->addWidget(checkBox_13);
 
@@ -378,7 +379,7 @@ public:
         horizontalLayout_26->setObjectName(QString::fromUtf8("horizontalLayout_26"));
         checkBox_14 = new QCheckBox(layoutWidget1);
         checkBox_14->setObjectName(QString::fromUtf8("checkBox_14"));
-        checkBox_14->setChecked(true);
+        checkBox_14->setChecked(false);
 
         horizontalLayout_26->addWidget(checkBox_14);
 
@@ -403,7 +404,7 @@ public:
         horizontalLayout_28->setObjectName(QString::fromUtf8("horizontalLayout_28"));
         checkBox_15 = new QCheckBox(layoutWidget_2);
         checkBox_15->setObjectName(QString::fromUtf8("checkBox_15"));
-        checkBox_15->setChecked(true);
+        checkBox_15->setChecked(false);
 
         horizontalLayout_28->addWidget(checkBox_15);
 
@@ -420,7 +421,7 @@ public:
         horizontalLayout_29->setObjectName(QString::fromUtf8("horizontalLayout_29"));
         checkBox_16 = new QCheckBox(layoutWidget_2);
         checkBox_16->setObjectName(QString::fromUtf8("checkBox_16"));
-        checkBox_16->setChecked(true);
+        checkBox_16->setChecked(false);
 
         horizontalLayout_29->addWidget(checkBox_16);
 
@@ -437,7 +438,7 @@ public:
         horizontalLayout_30->setObjectName(QString::fromUtf8("horizontalLayout_30"));
         checkBox_17 = new QCheckBox(layoutWidget_2);
         checkBox_17->setObjectName(QString::fromUtf8("checkBox_17"));
-        checkBox_17->setChecked(true);
+        checkBox_17->setChecked(false);
 
         horizontalLayout_30->addWidget(checkBox_17);
 
@@ -462,7 +463,7 @@ public:
         horizontalLayout_32->setObjectName(QString::fromUtf8("horizontalLayout_32"));
         checkBox_18 = new QCheckBox(layoutWidget_3);
         checkBox_18->setObjectName(QString::fromUtf8("checkBox_18"));
-        checkBox_18->setChecked(true);
+        checkBox_18->setChecked(false);
 
         horizontalLayout_32->addWidget(checkBox_18);
 
@@ -479,7 +480,7 @@ public:
         horizontalLayout_33->setObjectName(QString::fromUtf8("horizontalLayout_33"));
         checkBox_19 = new QCheckBox(layoutWidget_3);
         checkBox_19->setObjectName(QString::fromUtf8("checkBox_19"));
-        checkBox_19->setChecked(true);
+        checkBox_19->setChecked(false);
 
         horizontalLayout_33->addWidget(checkBox_19);
 
@@ -496,7 +497,7 @@ public:
         horizontalLayout_34->setObjectName(QString::fromUtf8("horizontalLayout_34"));
         checkBox_20 = new QCheckBox(layoutWidget_3);
         checkBox_20->setObjectName(QString::fromUtf8("checkBox_20"));
-        checkBox_20->setChecked(true);
+        checkBox_20->setChecked(false);
 
         horizontalLayout_34->addWidget(checkBox_20);
 
@@ -521,7 +522,7 @@ public:
         horizontalLayout_36->setObjectName(QString::fromUtf8("horizontalLayout_36"));
         checkBox_21 = new QCheckBox(layoutWidget_4);
         checkBox_21->setObjectName(QString::fromUtf8("checkBox_21"));
-        checkBox_21->setChecked(true);
+        checkBox_21->setChecked(false);
 
         horizontalLayout_36->addWidget(checkBox_21);
 
@@ -538,7 +539,7 @@ public:
         horizontalLayout_37->setObjectName(QString::fromUtf8("horizontalLayout_37"));
         checkBox_22 = new QCheckBox(layoutWidget_4);
         checkBox_22->setObjectName(QString::fromUtf8("checkBox_22"));
-        checkBox_22->setChecked(true);
+        checkBox_22->setChecked(false);
 
         horizontalLayout_37->addWidget(checkBox_22);
 
@@ -555,7 +556,7 @@ public:
         horizontalLayout_38->setObjectName(QString::fromUtf8("horizontalLayout_38"));
         checkBox_23 = new QCheckBox(layoutWidget_4);
         checkBox_23->setObjectName(QString::fromUtf8("checkBox_23"));
-        checkBox_23->setChecked(true);
+        checkBox_23->setChecked(false);
 
         horizontalLayout_38->addWidget(checkBox_23);
 
@@ -580,7 +581,7 @@ public:
         horizontalLayout_40->setObjectName(QString::fromUtf8("horizontalLayout_40"));
         checkBox_24 = new QCheckBox(layoutWidget_5);
         checkBox_24->setObjectName(QString::fromUtf8("checkBox_24"));
-        checkBox_24->setChecked(true);
+        checkBox_24->setChecked(false);
 
         horizontalLayout_40->addWidget(checkBox_24);
 
@@ -597,7 +598,7 @@ public:
         horizontalLayout_41->setObjectName(QString::fromUtf8("horizontalLayout_41"));
         checkBox_25 = new QCheckBox(layoutWidget_5);
         checkBox_25->setObjectName(QString::fromUtf8("checkBox_25"));
-        checkBox_25->setChecked(true);
+        checkBox_25->setChecked(false);
 
         horizontalLayout_41->addWidget(checkBox_25);
 
@@ -614,7 +615,7 @@ public:
         horizontalLayout_42->setObjectName(QString::fromUtf8("horizontalLayout_42"));
         checkBox_26 = new QCheckBox(layoutWidget_5);
         checkBox_26->setObjectName(QString::fromUtf8("checkBox_26"));
-        checkBox_26->setChecked(true);
+        checkBox_26->setChecked(false);
 
         horizontalLayout_42->addWidget(checkBox_26);
 
@@ -761,7 +762,7 @@ public:
         horizontalLayout_20->setObjectName(QString::fromUtf8("horizontalLayout_20"));
         checkBox_9 = new QCheckBox(layoutWidget3);
         checkBox_9->setObjectName(QString::fromUtf8("checkBox_9"));
-        checkBox_9->setChecked(true);
+        checkBox_9->setChecked(false);
 
         horizontalLayout_20->addWidget(checkBox_9);
 
@@ -778,7 +779,7 @@ public:
         horizontalLayout_21->setObjectName(QString::fromUtf8("horizontalLayout_21"));
         checkBox_10 = new QCheckBox(layoutWidget3);
         checkBox_10->setObjectName(QString::fromUtf8("checkBox_10"));
-        checkBox_10->setChecked(true);
+        checkBox_10->setChecked(false);
 
         horizontalLayout_21->addWidget(checkBox_10);
 
@@ -795,7 +796,7 @@ public:
         horizontalLayout_22->setObjectName(QString::fromUtf8("horizontalLayout_22"));
         checkBox_11 = new QCheckBox(layoutWidget3);
         checkBox_11->setObjectName(QString::fromUtf8("checkBox_11"));
-        checkBox_11->setChecked(true);
+        checkBox_11->setChecked(false);
 
         horizontalLayout_22->addWidget(checkBox_11);
 
@@ -820,7 +821,7 @@ public:
         horizontalLayout_19->setObjectName(QString::fromUtf8("horizontalLayout_19"));
         checkBox = new QCheckBox(layoutWidget4);
         checkBox->setObjectName(QString::fromUtf8("checkBox"));
-        checkBox->setChecked(true);
+        checkBox->setChecked(false);
 
         horizontalLayout_19->addWidget(checkBox);
 
@@ -837,7 +838,7 @@ public:
         horizontalLayout_10->setObjectName(QString::fromUtf8("horizontalLayout_10"));
         checkBox_1 = new QCheckBox(layoutWidget4);
         checkBox_1->setObjectName(QString::fromUtf8("checkBox_1"));
-        checkBox_1->setChecked(true);
+        checkBox_1->setChecked(false);
 
         horizontalLayout_10->addWidget(checkBox_1);
 
@@ -854,7 +855,7 @@ public:
         horizontalLayout_9->setObjectName(QString::fromUtf8("horizontalLayout_9"));
         checkBox_2 = new QCheckBox(layoutWidget4);
         checkBox_2->setObjectName(QString::fromUtf8("checkBox_2"));
-        checkBox_2->setChecked(true);
+        checkBox_2->setChecked(false);
 
         horizontalLayout_9->addWidget(checkBox_2);
 
@@ -879,7 +880,7 @@ public:
         horizontalLayout_11->setObjectName(QString::fromUtf8("horizontalLayout_11"));
         checkBox_6 = new QCheckBox(layoutWidget5);
         checkBox_6->setObjectName(QString::fromUtf8("checkBox_6"));
-        checkBox_6->setChecked(true);
+        checkBox_6->setChecked(false);
 
         horizontalLayout_11->addWidget(checkBox_6);
 
@@ -896,7 +897,7 @@ public:
         horizontalLayout_12->setObjectName(QString::fromUtf8("horizontalLayout_12"));
         checkBox_7 = new QCheckBox(layoutWidget5);
         checkBox_7->setObjectName(QString::fromUtf8("checkBox_7"));
-        checkBox_7->setChecked(true);
+        checkBox_7->setChecked(false);
 
         horizontalLayout_12->addWidget(checkBox_7);
 
@@ -913,7 +914,7 @@ public:
         horizontalLayout_15->setObjectName(QString::fromUtf8("horizontalLayout_15"));
         checkBox_8 = new QCheckBox(layoutWidget5);
         checkBox_8->setObjectName(QString::fromUtf8("checkBox_8"));
-        checkBox_8->setChecked(true);
+        checkBox_8->setChecked(false);
 
         horizontalLayout_15->addWidget(checkBox_8);
 
@@ -924,36 +925,6 @@ public:
 
 
         horizontalLayout_16->addLayout(horizontalLayout_15);
-
-        layoutWidget6 = new QWidget(basicSetting);
-        layoutWidget6->setObjectName(QString::fromUtf8("layoutWidget6"));
-        layoutWidget6->setGeometry(QRect(20, 400, 191, 27));
-        horizontalLayout_44 = new QHBoxLayout(layoutWidget6);
-        horizontalLayout_44->setSpacing(6);
-        horizontalLayout_44->setContentsMargins(11, 11, 11, 11);
-        horizontalLayout_44->setObjectName(QString::fromUtf8("horizontalLayout_44"));
-        horizontalLayout_44->setContentsMargins(0, 0, 0, 0);
-        horizontalLayout_43 = new QHBoxLayout();
-        horizontalLayout_43->setSpacing(6);
-        horizontalLayout_43->setObjectName(QString::fromUtf8("horizontalLayout_43"));
-        checkBox_27 = new QCheckBox(layoutWidget6);
-        checkBox_27->setObjectName(QString::fromUtf8("checkBox_27"));
-        checkBox_27->setChecked(true);
-
-        horizontalLayout_43->addWidget(checkBox_27);
-
-        Total_power_factor_ = new QPushButton(layoutWidget6);
-        Total_power_factor_->setObjectName(QString::fromUtf8("Total_power_factor_"));
-
-        horizontalLayout_43->addWidget(Total_power_factor_);
-
-
-        horizontalLayout_44->addLayout(horizontalLayout_43);
-
-        testall = new QPushButton(layoutWidget6);
-        testall->setObjectName(QString::fromUtf8("testall"));
-
-        horizontalLayout_44->addWidget(testall);
 
         layoutWidget_6 = new QWidget(basicSetting);
         layoutWidget_6->setObjectName(QString::fromUtf8("layoutWidget_6"));
@@ -968,7 +939,7 @@ public:
         horizontalLayout_13->setObjectName(QString::fromUtf8("horizontalLayout_13"));
         checkBox_3 = new QCheckBox(layoutWidget_6);
         checkBox_3->setObjectName(QString::fromUtf8("checkBox_3"));
-        checkBox_3->setChecked(true);
+        checkBox_3->setChecked(false);
 
         horizontalLayout_13->addWidget(checkBox_3);
 
@@ -985,7 +956,7 @@ public:
         horizontalLayout_14->setObjectName(QString::fromUtf8("horizontalLayout_14"));
         checkBox_4 = new QCheckBox(layoutWidget_6);
         checkBox_4->setObjectName(QString::fromUtf8("checkBox_4"));
-        checkBox_4->setChecked(true);
+        checkBox_4->setChecked(false);
 
         horizontalLayout_14->addWidget(checkBox_4);
 
@@ -1002,7 +973,7 @@ public:
         horizontalLayout_46->setObjectName(QString::fromUtf8("horizontalLayout_46"));
         checkBox_5 = new QCheckBox(layoutWidget_6);
         checkBox_5->setObjectName(QString::fromUtf8("checkBox_5"));
-        checkBox_5->setChecked(true);
+        checkBox_5->setChecked(false);
 
         horizontalLayout_46->addWidget(checkBox_5);
 
@@ -1014,42 +985,77 @@ public:
 
         horizontalLayout_45->addLayout(horizontalLayout_46);
 
+        widget = new QWidget(basicSetting);
+        widget->setObjectName(QString::fromUtf8("widget"));
+        widget->setGeometry(QRect(10, 400, 251, 27));
+        horizontalLayout_44 = new QHBoxLayout(widget);
+        horizontalLayout_44->setSpacing(6);
+        horizontalLayout_44->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout_44->setObjectName(QString::fromUtf8("horizontalLayout_44"));
+        horizontalLayout_44->setContentsMargins(0, 0, 0, 0);
+        horizontalLayout_43 = new QHBoxLayout();
+        horizontalLayout_43->setSpacing(6);
+        horizontalLayout_43->setObjectName(QString::fromUtf8("horizontalLayout_43"));
+        checkBox_27 = new QCheckBox(widget);
+        checkBox_27->setObjectName(QString::fromUtf8("checkBox_27"));
+        checkBox_27->setChecked(false);
+
+        horizontalLayout_43->addWidget(checkBox_27);
+
+        Total_power_factor_ = new QPushButton(widget);
+        Total_power_factor_->setObjectName(QString::fromUtf8("Total_power_factor_"));
+
+        horizontalLayout_43->addWidget(Total_power_factor_);
+
+
+        horizontalLayout_44->addLayout(horizontalLayout_43);
+
+        checkBox_28 = new QCheckBox(widget);
+        checkBox_28->setObjectName(QString::fromUtf8("checkBox_28"));
+
+        horizontalLayout_44->addWidget(checkBox_28);
+
+        testall = new QPushButton(widget);
+        testall->setObjectName(QString::fromUtf8("testall"));
+
+        horizontalLayout_44->addWidget(testall);
+
         extraSetting = new QGroupBox(centralWidget);
         extraSetting->setObjectName(QString::fromUtf8("extraSetting"));
         extraSetting->setGeometry(QRect(0, 450, 341, 111));
         extraSetting->setMinimumSize(QSize(200, 0));
         extraSetting->setMaximumSize(QSize(50000, 16777215));
-        layoutWidget7 = new QWidget(extraSetting);
-        layoutWidget7->setObjectName(QString::fromUtf8("layoutWidget7"));
-        layoutWidget7->setGeometry(QRect(12, 22, 279, 69));
-        gridLayout = new QGridLayout(layoutWidget7);
+        layoutWidget6 = new QWidget(extraSetting);
+        layoutWidget6->setObjectName(QString::fromUtf8("layoutWidget6"));
+        layoutWidget6->setGeometry(QRect(12, 22, 279, 69));
+        gridLayout = new QGridLayout(layoutWidget6);
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
         gridLayout->setContentsMargins(0, 0, 0, 0);
-        autoNewLine = new QCheckBox(layoutWidget7);
+        autoNewLine = new QCheckBox(layoutWidget6);
         autoNewLine->setObjectName(QString::fromUtf8("autoNewLine"));
 
         gridLayout->addWidget(autoNewLine, 0, 0, 1, 1);
 
-        doubleColor = new QCheckBox(layoutWidget7);
+        doubleColor = new QCheckBox(layoutWidget6);
         doubleColor->setObjectName(QString::fromUtf8("doubleColor"));
         doubleColor->setChecked(true);
 
         gridLayout->addWidget(doubleColor, 0, 1, 1, 2);
 
-        showTime = new QCheckBox(layoutWidget7);
+        showTime = new QCheckBox(layoutWidget6);
         showTime->setObjectName(QString::fromUtf8("showTime"));
 
         gridLayout->addWidget(showTime, 0, 3, 1, 1);
 
-        hexadecimaleReceive = new QCheckBox(layoutWidget7);
+        hexadecimaleReceive = new QCheckBox(layoutWidget6);
         hexadecimaleReceive->setObjectName(QString::fromUtf8("hexadecimaleReceive"));
         hexadecimaleReceive->setChecked(true);
 
         gridLayout->addWidget(hexadecimaleReceive, 1, 0, 1, 2);
 
-        hexadecimalSend = new QCheckBox(layoutWidget7);
+        hexadecimalSend = new QCheckBox(layoutWidget6);
         hexadecimalSend->setObjectName(QString::fromUtf8("hexadecimalSend"));
         hexadecimalSend->setEnabled(true);
         hexadecimalSend->setTabletTracking(false);
@@ -1057,12 +1063,12 @@ public:
 
         gridLayout->addWidget(hexadecimalSend, 1, 2, 1, 2);
 
-        clear = new QPushButton(layoutWidget7);
+        clear = new QPushButton(layoutWidget6);
         clear->setObjectName(QString::fromUtf8("clear"));
 
         gridLayout->addWidget(clear, 2, 2, 1, 2);
 
-        sendFile = new QPushButton(layoutWidget7);
+        sendFile = new QPushButton(layoutWidget6);
         sendFile->setObjectName(QString::fromUtf8("sendFile"));
 
         gridLayout->addWidget(sendFile, 2, 0, 1, 2);
@@ -1179,15 +1185,16 @@ public:
         B_Electric->setText(QApplication::translate("SerialPortAssistant", "B\347\233\270\347\224\265\346\265\201", nullptr));
         checkBox_8->setText(QString());
         C_Electric->setText(QApplication::translate("SerialPortAssistant", "C\347\233\270\347\224\265\346\265\201", nullptr));
-        checkBox_27->setText(QString());
-        Total_power_factor_->setText(QApplication::translate("SerialPortAssistant", "\346\200\273\345\212\237\347\216\207\345\233\240\346\225\260", nullptr));
-        testall->setText(QApplication::translate("SerialPortAssistant", "\345\213\276\351\200\211\346\265\213\350\257\225", nullptr));
         checkBox_3->setText(QString());
         A_Voltage->setText(QApplication::translate("SerialPortAssistant", "A\347\233\270\347\224\265\345\216\213", nullptr));
         checkBox_4->setText(QString());
         B_Voltage->setText(QApplication::translate("SerialPortAssistant", "B\347\233\270\347\224\265\345\216\213", nullptr));
         checkBox_5->setText(QString());
         C_Voltage->setText(QApplication::translate("SerialPortAssistant", "C\347\233\270\347\224\265\345\216\213", nullptr));
+        checkBox_27->setText(QString());
+        Total_power_factor_->setText(QApplication::translate("SerialPortAssistant", "\346\200\273\345\212\237\347\216\207\345\233\240\346\225\260", nullptr));
+        checkBox_28->setText(QApplication::translate("SerialPortAssistant", "\345\205\250\351\200\211", nullptr));
+        testall->setText(QApplication::translate("SerialPortAssistant", "\345\213\276\351\200\211\346\265\213\350\257\225", nullptr));
         extraSetting->setTitle(QApplication::translate("SerialPortAssistant", "\350\276\205\345\212\251\345\212\237\350\203\275", nullptr));
         autoNewLine->setText(QApplication::translate("SerialPortAssistant", "\350\207\252\345\212\250\346\215\242\350\241\214", nullptr));
         doubleColor->setText(QApplication::translate("SerialPortAssistant", "\346\224\266\345\217\221\345\217\214\350\211\262\346\230\276\347\244\272", nullptr));

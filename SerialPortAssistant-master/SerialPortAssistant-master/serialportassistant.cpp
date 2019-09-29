@@ -2,6 +2,9 @@
 #include "ui_serialportassistant.h"
 #include <QDebug>
 
+void StringToHex(QString str, QByteArray &senddata);
+
+
 SerialPortAssistant::SerialPortAssistant(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::SerialPortAssistant)
@@ -200,6 +203,7 @@ void SerialPortAssistant::receive(void)
 {
     /* Receive data. */
     QByteArray data = port->readAll();
+    //qDebug()<<"data is :"<<data;
     QString display;
     /* Convert data to hexadecimal. */
     if(ui->hexadecimaleReceive->isChecked())
@@ -233,7 +237,7 @@ void SerialPortAssistant::receive(void)
     if(flag == 6 || flag == 7 || flag == 8)
     {
         QStringList listdisplay = enddisplay.split(" ");
-        qDebug()<< "listdisplay:"<<listdisplay;
+        //qDebug()<< "listdisplay:"<<listdisplay;
         //电压,功率因数分割为了24个数据
         if(listdisplay.count() == 24)
         {
@@ -272,6 +276,23 @@ void SerialPortAssistant::receive(void)
                 listdisplay.clear();
                 flag = 0;
             }
+            //电网频率
+            else if(listdisplay[16] == "b3" || listdisplay[16] == "B3")
+            {
+                listdisplay[19] = QString::number((listdisplay[19].toInt(nullptr,16) - 0x33),16);
+                listdisplay[19] = QString("%1").arg(listdisplay[19].toInt(), 2, 10, QLatin1Char('0'));
+                listdisplay[18] = QString::number((listdisplay[18].toInt(nullptr,16) - 0x33),16);
+                listdisplay[18] = QString("%1").arg(listdisplay[18].toInt(), 2, 10, QLatin1Char('0'));
+
+                tempdata = listdisplay[19] + listdisplay[18];
+                showdata = tempdata.mid(0,2) + "." + tempdata.mid(1,2)+ "\n";
+
+                insertDataDisplay_(showdata,ui->doubleColor->isChecked() ? Qt::blue : Qt::black);
+                enddisplay.clear();
+                showdata.clear();
+                listdisplay.clear();
+                flag = 0;
+            }
 
         }
         //电流,有功功率,无功功率,视在功率分割为25个数据
@@ -280,6 +301,24 @@ void SerialPortAssistant::receive(void)
             QString tempdata,showdata;
             //电流
             if(listdisplay[16] == "35" && listdisplay[17] == "35")
+            {
+                listdisplay[20] = QString::number((listdisplay[20].toInt(nullptr,16) - 0x33),16);
+                listdisplay[20] = QString("%1").arg(listdisplay[20].toInt(), 2, 10, QLatin1Char('0'));
+                listdisplay[19] = QString::number((listdisplay[19].toInt(nullptr,16) - 0x33),16);
+                listdisplay[19] = QString("%1").arg(listdisplay[19].toInt(), 2, 10, QLatin1Char('0'));
+                listdisplay[18] = QString::number((listdisplay[18].toInt(nullptr,16) - 0x33),16);
+                listdisplay[18] = QString("%1").arg(listdisplay[18].toInt(), 2, 10, QLatin1Char('0'));
+
+                tempdata = listdisplay[20] + listdisplay[19] + listdisplay[18] ;
+                showdata = tempdata.mid(0,3) + "." + tempdata.mid(3,3)+ "\n";
+
+                insertDataDisplay_(showdata,ui->doubleColor->isChecked() ? Qt::blue : Qt::black);
+                enddisplay.clear();
+                showdata.clear();
+                listdisplay.clear();
+                flag = 0;
+            }
+            else if(listdisplay[16] == "b3" || listdisplay[16] == "B3")
             {
                 listdisplay[20] = QString::number((listdisplay[20].toInt(nullptr,16) - 0x33),16);
                 listdisplay[20] = QString("%1").arg(listdisplay[20].toInt(), 2, 10, QLatin1Char('0'));
@@ -498,7 +537,6 @@ void SerialPortAssistant::openFile(void)
     file.close();
 }
 
-
 /* Save content of ui->dataDisplay into file. */
 void SerialPortAssistant::saveAs(void)
 {
@@ -539,7 +577,44 @@ void SerialPortAssistant::on_power_frequency_clicked()
 {
     QString data = "68 11 11 11 11 11 11 68 11 04 35 33 B3 35 9B 16";
     QString dataname = "电网频率:";
-    Handle_data(data,dataname);
+    // 串口未打开
+    if ( !isPortOpen )
+    {
+        QMessageBox::warning(this, tr("Error"), QString::fromLocal8Bit("串口未打开，发送失败"), QMessageBox::Ok);
+        return;
+    }
+
+    char16_t i,num = 0;
+    QByteArray send_data;
+    int len = data.length();
+    QString send_str,showData = "\n发送信息->" + data;
+    for(i=0;i<len;i++)
+    {
+        if(data.at(i)!= ' ')
+        {
+            send_str[num] = data.at(i);
+            num ++;
+        }
+    }
+    StringToHex(data,send_data);//将str字符串转换为16进制的形式
+    send_data.resize(num/2);
+    port->write(send_data);
+
+    /* Add time to show. */
+    if(ui->showTime->isChecked())
+    {
+        QDateTime time = QDateTime::currentDateTime();
+        showData = time.toString("yyyy-MM-dd hh:mm:ss") + " : " + showData;
+    }
+    /* Add newline to show. */
+    if(ui->autoNewLine->isChecked())
+    {
+        showData += "\n";
+    }
+    /* Show data. */
+    showData += "\n";
+    insertDataDisplay(showData,ui->doubleColor->isChecked() ? Qt::green : Qt::black);
+    insertDataDisplay_(dataname,ui->doubleColor->isChecked() ? Qt::blue : Qt::black);
 }
 
 
@@ -547,7 +622,44 @@ void SerialPortAssistant::on_N_Electric_clicked()
 {
     QString data = "68 11 11 11 11 11 11 68 11 04 34 33 B3 35 9A 16";
     QString dataname = "零线电流:";
-    Handle_data(data,dataname);
+    // 串口未打开
+    if ( !isPortOpen )
+    {
+        QMessageBox::warning(this, tr("Error"), QString::fromLocal8Bit("串口未打开，发送失败"), QMessageBox::Ok);
+        return;
+    }
+
+    char16_t i,num = 0;
+    QByteArray send_data;
+    int len = data.length();
+    QString send_str,showData = "\n发送信息->" + data;
+    for(i=0;i<len;i++)
+    {
+        if(data.at(i)!= ' ')
+        {
+            send_str[num] = data.at(i);
+            num ++;
+        }
+    }
+    StringToHex(data,send_data);//将str字符串转换为16进制的形式
+    send_data.resize(num/2);
+    port->write(send_data);
+
+    /* Add time to show. */
+    if(ui->showTime->isChecked())
+    {
+        QDateTime time = QDateTime::currentDateTime();
+        showData = time.toString("yyyy-MM-dd hh:mm:ss") + " : " + showData;
+    }
+    /* Add newline to show. */
+    if(ui->autoNewLine->isChecked())
+    {
+        showData += "\n";
+    }
+    /* Show data. */
+    showData += "\n";
+    insertDataDisplay(showData,ui->doubleColor->isChecked() ? Qt::green : Qt::black);
+    insertDataDisplay_(dataname,ui->doubleColor->isChecked() ? Qt::blue : Qt::black);
 }
 
 void SerialPortAssistant::on_A_Electric_clicked()
@@ -727,6 +839,13 @@ void SerialPortAssistant::on_C_total_power_clicked()
 
 void SerialPortAssistant::Handle_data(QString& text1,const QString& text2)
 {
+    // 串口未打开
+    if ( !isPortOpen )
+    {
+        QMessageBox::warning(this, tr("Error"), QString::fromLocal8Bit("串口未打开，发送失败"), QMessageBox::Ok);
+        return;
+    }
+
     QRegExp regExp(" *([0-9A-Fa-f]{2} +)+[0-9A-Fa-f]{2} *");
     if(regExp.exactMatch(text1))
     {
@@ -740,7 +859,6 @@ void SerialPortAssistant::Handle_data(QString& text1,const QString& text2)
             int n = i.toInt(nullptr,16);
             newData += text1.sprintf("%c",static_cast<char>(n));
         }
-
         /* Transmit data. */
         if(port->write(newData.toStdString().c_str()) == -1)
         {
@@ -771,7 +889,7 @@ void SerialPortAssistant::Handle_data(QString& text1,const QString& text2)
 }
 
 //Millisecond
-bool SerialPortAssistant::sleep(unsigned int msec)
+bool SerialPortAssistant::sleep(int msec)
 {
     QTime dieTime = QTime::currentTime().addMSecs(msec);
 
@@ -925,5 +1043,123 @@ void SerialPortAssistant::on_testall_clicked()
     {
         on_Total_power_factor__clicked();
         sleep(500);
+    }
+}
+
+
+
+/*将十六进制转换为字符*/
+char ConvertHexChar(char ch)
+{
+    if((ch >= '0') && (ch <= '9'))
+        return ch-0x30;
+    else if((ch >= 'A') && (ch <= 'F'))
+        return ch-'A'+10;
+    else if((ch >= 'a') && (ch <= 'f'))
+        return ch-'a'+10;
+    else return ch-ch;//不在0-f范围内的会发送成0
+}
+
+
+
+/*将字符串转换为hex格式*/
+void StringToHex(QString str, QByteArray &senddata)
+{
+    int hexdata,lowhexdata;
+    int hexdatalen = 0;
+    int len = str.length();
+    senddata.resize(len/2);
+    char lstr,hstr;
+
+    for(int i=0; i<len; )
+    {
+        //char lstr,
+        hstr=str[i].toLatin1();
+        if(hstr == ' ')
+        {
+            i++;
+            continue;
+        }
+        i++;
+        if(i >= len)
+            break;
+        lstr = str[i].toLatin1();
+        hexdata = ConvertHexChar(hstr);
+        lowhexdata = ConvertHexChar(lstr);
+        if((hexdata == 16) || (lowhexdata == 16))
+            break;
+        else
+            hexdata = hexdata*16+lowhexdata;
+        i++;
+        senddata[hexdatalen] = (char)hexdata;
+        hexdatalen++;
+    }
+    senddata.resize(hexdatalen);
+}
+
+
+void SerialPortAssistant::on_checkBox_28_stateChanged()
+{
+    if(ui->checkBox_28->isChecked())
+    {
+        ui->checkBox->setChecked(true);
+        ui->checkBox_1->setChecked(true);
+        ui->checkBox_2->setChecked(true);
+        ui->checkBox_3->setChecked(true);
+        ui->checkBox_4->setChecked(true);
+        ui->checkBox_5->setChecked(true);
+        ui->checkBox_6->setChecked(true);
+        ui->checkBox_7->setChecked(true);
+        ui->checkBox_8->setChecked(true);
+        ui->checkBox_9->setChecked(true);
+        ui->checkBox_10->setChecked(true);
+        ui->checkBox_11->setChecked(true);
+        ui->checkBox_12->setChecked(true);
+        ui->checkBox_13->setChecked(true);
+        ui->checkBox_14->setChecked(true);
+        ui->checkBox_15->setChecked(true);
+        ui->checkBox_16->setChecked(true);
+        ui->checkBox_17->setChecked(true);
+        ui->checkBox_18->setChecked(true);
+        ui->checkBox_19->setChecked(true);
+        ui->checkBox_20->setChecked(true);
+        ui->checkBox_21->setChecked(true);
+        ui->checkBox_22->setChecked(true);
+        ui->checkBox_23->setChecked(true);
+        ui->checkBox_24->setChecked(true);
+        ui->checkBox_25->setChecked(true);
+        ui->checkBox_26->setChecked(true);
+        ui->checkBox_27->setChecked(true);
+    }
+    else
+    {
+        ui->checkBox->setChecked(false);
+        ui->checkBox_1->setChecked(false);
+        ui->checkBox_2->setChecked(false);
+        ui->checkBox_3->setChecked(false);
+        ui->checkBox_4->setChecked(false);
+        ui->checkBox_5->setChecked(false);
+        ui->checkBox_6->setChecked(false);
+        ui->checkBox_7->setChecked(false);
+        ui->checkBox_8->setChecked(false);
+        ui->checkBox_9->setChecked(false);
+        ui->checkBox_10->setChecked(false);
+        ui->checkBox_11->setChecked(false);
+        ui->checkBox_12->setChecked(false);
+        ui->checkBox_13->setChecked(false);
+        ui->checkBox_14->setChecked(false);
+        ui->checkBox_15->setChecked(false);
+        ui->checkBox_16->setChecked(false);
+        ui->checkBox_17->setChecked(false);
+        ui->checkBox_18->setChecked(false);
+        ui->checkBox_19->setChecked(false);
+        ui->checkBox_20->setChecked(false);
+        ui->checkBox_21->setChecked(false);
+        ui->checkBox_22->setChecked(false);
+        ui->checkBox_23->setChecked(false);
+        ui->checkBox_24->setChecked(false);
+        ui->checkBox_25->setChecked(false);
+        ui->checkBox_26->setChecked(false);
+        ui->checkBox_27->setChecked(false);
     }
 }

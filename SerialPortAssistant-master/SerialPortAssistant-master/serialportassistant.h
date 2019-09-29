@@ -37,7 +37,7 @@ public:
     void insertDataDisplay(const QString& text,const QColor& color=Qt::black);
     void insertDataDisplay_(const QString& text,const QColor& color=Qt::black);
     void Handle_data(QString& text1,const QString& text2);
-    bool sleep(unsigned int msec);
+    bool sleep(int msec);
     QString enddisplay;
     int flag = 0;
 
@@ -55,7 +55,6 @@ public slots:
     void clear(void);
     void on_Get_Active_Electric_clicked(void);
     void on_power_frequency_clicked();
-
     void on_sendclear_clicked(void);
 
 
@@ -112,6 +111,8 @@ private slots:
     void on_C_total_power_clicked();
 
     void on_testall_clicked();
+
+    void on_checkBox_28_stateChanged();
 
 private:
     Ui::SerialPortAssistant *ui;
