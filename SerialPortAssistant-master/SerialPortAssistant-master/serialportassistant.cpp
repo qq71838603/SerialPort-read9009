@@ -204,7 +204,7 @@ void SerialPortAssistant::receive(void)
     /* Receive data. */
     QByteArray data = port->readAll();
     //qDebug()<<"data is :"<<data;
-    QString display;
+    QString display,ndisplay;
     /* Convert data to hexadecimal. */
     if(ui->hexadecimaleReceive->isChecked())
     {
@@ -213,23 +213,21 @@ void SerialPortAssistant::receive(void)
         {
             temp.sprintf("%02x ",(unsigned char)data.at(i));
             display += temp;
+            ndisplay += temp;
         }
     }
 
-    /* Add time to show. */
-    if(ui->showTime->isChecked())
-    {
-        QDateTime time = QDateTime::currentDateTime();
-        display = time.toString("yyyy-MM-dd hh:mm:ss") + " : " + display;
-    }
+    //修改bug,只用一个display在实现换行功能会出现多余字符导致错误
     /* Add newline to show. */
     if(ui->autoNewLine->isChecked())
     {
-        display += "\n";
+        ndisplay += "\n";
+        /* Show the data received. */
+        insertDataDisplay(ndisplay,ui->doubleColor->isChecked() ? Qt::blue : Qt::black);
     }
-
     /* Show the data received. */
-    insertDataDisplay(display,ui->doubleColor->isChecked() ? Qt::blue : Qt::black);
+    else
+        insertDataDisplay(display,ui->doubleColor->isChecked() ? Qt::blue : Qt::black);
 
     flag ++;
     enddisplay += display;
@@ -237,7 +235,8 @@ void SerialPortAssistant::receive(void)
     if(flag == 6 || flag == 7 || flag == 8)
     {
         QStringList listdisplay = enddisplay.split(" ");
-        //qDebug()<< "listdisplay:"<<listdisplay;
+        //qDebug()<< "listdisplayt:"<<listdisplay;
+        //qDebug()<< "listdisplay.count:"<<listdisplay.count();
         //电压,功率因数分割为了24个数据
         if(listdisplay.count() == 24)
         {
@@ -381,8 +380,38 @@ void SerialPortAssistant::receive(void)
                 flag = 0;
             }
         }
+        //else if()
     }
-    if(flag == 9)
+    //用于读取温湿度,分了十段或者是十一段来读取温湿度
+    else if(flag == 10 || flag == 11)
+    {
+        QStringList listdisplay = enddisplay.split(" ");
+        //qDebug()<< "listdisplayt:"<<listdisplay;
+        //qDebug()<< "listdisplay.count:"<<listdisplay.count();
+        int tep,hum;
+        if(listdisplay.count() == 34)
+        {
+            listdisplay[18] = QString::number((listdisplay[18].toInt(nullptr,16) - 0x33),16);
+            listdisplay[19] = QString::number((listdisplay[19].toInt(nullptr,16) - 0x33),16);
+            listdisplay[20] = QString::number((listdisplay[20].toInt(nullptr,16) - 0x33),16);
+
+            //温湿度数据从listdisplay[19]中对半拆分
+            hum = listdisplay[19].toInt() / 10;
+            tep = listdisplay[19].toInt() % 10;
+
+            //qDebug()<< "(listdisplay[18].toInt() * 10) + tep:"<<(listdisplay[18].toInt() * 10) + tep;
+            //qDebug()<< "(listdisplay[20].toInt() + hum *100) -40:"<<(listdisplay[20].toInt() + hum *100) -40;
+
+            QString showdata = "湿度:" + QString::number((listdisplay[18].toInt() * 10) + hum)+ "%" +"\n" + "温度:" + QString::number((listdisplay[20].toInt() + tep *100) -40) + "°C" + "\n";
+
+            insertDataDisplay_(showdata,ui->doubleColor->isChecked() ? Qt::blue : Qt::black);
+            enddisplay.clear();
+            showdata.clear();
+            listdisplay.clear();
+            flag = 0;
+        }
+    }
+    if(flag == 12)
     {
         flag = 0;
         enddisplay.clear();
@@ -565,14 +594,8 @@ void SerialPortAssistant::on_sendclear_clicked(void)
      ui->dataToSend->clear();
 }
 
-/*Get Forward Active Power*/
-void SerialPortAssistant::on_Get_Active_Electric_clicked()
-{
-    QString data = "68 11 11 11 11 11 11 68 11 04 33 33 34 33 18 16";
-    QString dataname = "当前正向有功总电能:";
-    Handle_data(data,dataname);
-}
 
+/* 电网频率使用通用处理无法接受数据,先这样处理 */
 void SerialPortAssistant::on_power_frequency_clicked()
 {
     QString data = "68 11 11 11 11 11 11 68 11 04 35 33 B3 35 9B 16";
@@ -617,7 +640,7 @@ void SerialPortAssistant::on_power_frequency_clicked()
     insertDataDisplay_(dataname,ui->doubleColor->isChecked() ? Qt::blue : Qt::black);
 }
 
-
+/* 零线电流使用通用处理无法接受数据,先这样处理 */
 void SerialPortAssistant::on_N_Electric_clicked()
 {
     QString data = "68 11 11 11 11 11 11 68 11 04 34 33 B3 35 9A 16";
@@ -660,6 +683,65 @@ void SerialPortAssistant::on_N_Electric_clicked()
     showData += "\n";
     insertDataDisplay(showData,ui->doubleColor->isChecked() ? Qt::green : Qt::black);
     insertDataDisplay_(dataname,ui->doubleColor->isChecked() ? Qt::blue : Qt::black);
+}
+
+/* 读取温湿度特殊处理 */
+void SerialPortAssistant::on_Temperature_humidity_clicked()
+{
+    QString text1 = "68 11 11 11 11 11 11 68 11 04 33 33 3A 35 20 16";
+    // 串口未打开
+    if ( !isPortOpen )
+    {
+        QMessageBox::warning(this, tr("Error"), QString::fromLocal8Bit("串口未打开，发送失败"), QMessageBox::Ok);
+        return;
+    }
+
+    QRegExp regExp(" *([0-9A-Fa-f]{2} +)+[0-9A-Fa-f]{2} *");
+    if(regExp.exactMatch(text1))
+    {
+        /* Convert every 2 characters to hexadecimal. */
+        QStringList dataList = text1.split(QRegExp(" +"));
+        QString newData,showData;
+        showData += "\n发送信息->";
+        foreach(const QString& i, dataList)
+        {
+            showData += i + " ";
+            int n = i.toInt(nullptr,16);
+            newData += text1.sprintf("%c",static_cast<char>(n));
+        }
+        /* Transmit data. */
+        if(port->write(newData.toStdString().c_str()) == -1)
+        {
+            statusBar()->showMessage("Send data failed : "+ port->errorString());
+            return;
+        }
+
+        /* Add time to show. */
+        if(ui->showTime->isChecked())
+        {
+            QDateTime time = QDateTime::currentDateTime();
+            showData = time.toString("yyyy-MM-dd hh:mm:ss") + " : " + showData;
+        }
+        /* Add newline to show. */
+        if(ui->autoNewLine->isChecked())
+        {
+            showData += "\n";
+        }
+        /* Show data. */
+        showData += "\n";
+        insertDataDisplay(showData,ui->doubleColor->isChecked() ? Qt::green : Qt::black);
+    }
+    else
+    {
+        statusBar()->showMessage("Data format is error",5000);
+    }
+}
+
+void SerialPortAssistant::on_Get_Active_Electric_clicked()
+{
+    QString data = "68 11 11 11 11 11 11 68 11 04 33 33 34 33 18 16";
+    QString dataname = "当前正向有功总电能:";
+    Handle_data(data,dataname);
 }
 
 void SerialPortAssistant::on_A_Electric_clicked()
@@ -837,6 +919,7 @@ void SerialPortAssistant::on_C_total_power_clicked()
     Handle_data(data,dataname);
 }
 
+/* 处理数据函数,用于指定按钮发送指定数据内容 */
 void SerialPortAssistant::Handle_data(QString& text1,const QString& text2)
 {
     // 串口未打开
@@ -852,7 +935,11 @@ void SerialPortAssistant::Handle_data(QString& text1,const QString& text2)
         /* Convert every 2 characters to hexadecimal. */
         QStringList dataList = text1.split(QRegExp(" +"));
         QString newData,showData;
-        showData += "\n发送信息->";
+        //修改时间显示bug,删除从recive中实现,改为发送信息就提示时间
+        if(ui->showTime->isChecked())
+            showData += "发送信息->";
+        else
+            showData += "\n发送信息->";
         foreach(const QString& i, dataList)
         {
             showData += i + " ";
@@ -870,7 +957,7 @@ void SerialPortAssistant::Handle_data(QString& text1,const QString& text2)
         if(ui->showTime->isChecked())
         {
             QDateTime time = QDateTime::currentDateTime();
-            showData = time.toString("yyyy-MM-dd hh:mm:ss") + " : " + showData;
+            showData ="\n"+ time.toString("yyyy-MM-dd hh:mm:ss") + " : " + showData;
         }
         /* Add newline to show. */
         if(ui->autoNewLine->isChecked())
@@ -888,7 +975,7 @@ void SerialPortAssistant::Handle_data(QString& text1,const QString& text2)
     }
 }
 
-//Millisecond
+/* Millisecond 延时函数,单位为毫秒 */
 bool SerialPortAssistant::sleep(int msec)
 {
     QTime dieTime = QTime::currentTime().addMSecs(msec);
@@ -900,6 +987,7 @@ bool SerialPortAssistant::sleep(int msec)
     return true;
 }
 
+/* 勾选测试 */
 void SerialPortAssistant::on_testall_clicked()
 {
     if(isPortOpen != true)
@@ -1044,9 +1132,12 @@ void SerialPortAssistant::on_testall_clicked()
         on_Total_power_factor__clicked();
         sleep(500);
     }
+    if(ui->checkBox_29->isChecked())
+    {
+        on_Temperature_humidity_clicked();
+        sleep(500);
+    }
 }
-
-
 
 /*将十六进制转换为字符*/
 char ConvertHexChar(char ch)
@@ -1059,8 +1150,6 @@ char ConvertHexChar(char ch)
         return ch-'a'+10;
     else return ch-ch;//不在0-f范围内的会发送成0
 }
-
-
 
 /*将字符串转换为hex格式*/
 void StringToHex(QString str, QByteArray &senddata)
@@ -1097,7 +1186,7 @@ void StringToHex(QString str, QByteArray &senddata)
     senddata.resize(hexdatalen);
 }
 
-
+/*  全选/取消全选 */
 void SerialPortAssistant::on_checkBox_28_stateChanged()
 {
     if(ui->checkBox_28->isChecked())
@@ -1130,6 +1219,7 @@ void SerialPortAssistant::on_checkBox_28_stateChanged()
         ui->checkBox_25->setChecked(true);
         ui->checkBox_26->setChecked(true);
         ui->checkBox_27->setChecked(true);
+        ui->checkBox_29->setChecked(true);
     }
     else
     {
@@ -1161,5 +1251,8 @@ void SerialPortAssistant::on_checkBox_28_stateChanged()
         ui->checkBox_25->setChecked(false);
         ui->checkBox_26->setChecked(false);
         ui->checkBox_27->setChecked(false);
+        ui->checkBox_29->setChecked(false);
     }
 }
+
+

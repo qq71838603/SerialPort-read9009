@@ -182,381 +182,6 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>250</y>
-       <width>302</width>
-       <height>27</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_23">
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_24">
-        <item>
-         <widget class="QCheckBox" name="checkBox_12">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="checked">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="A_Reactive_power">
-          <property name="text">
-           <string>A相无功功率</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_25">
-        <item>
-         <widget class="QCheckBox" name="checkBox_13">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="checked">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="B_Reactive_power">
-          <property name="text">
-           <string>B相无功功率</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_26">
-        <item>
-         <widget class="QCheckBox" name="checkBox_14">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="checked">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="C_Reactive_power">
-          <property name="text">
-           <string>C相无功功率</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </widget>
-    <widget class="QWidget" name="layoutWidget_2">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>280</y>
-       <width>302</width>
-       <height>27</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_27">
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_28">
-        <item>
-         <widget class="QCheckBox" name="checkBox_15">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="checked">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="A_Apparent_power">
-          <property name="text">
-           <string>A相视在功率</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_29">
-        <item>
-         <widget class="QCheckBox" name="checkBox_16">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="checked">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="B_Apparent_power">
-          <property name="text">
-           <string>B相视在功率</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_30">
-        <item>
-         <widget class="QCheckBox" name="checkBox_17">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="checked">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="C_Apparent_power">
-          <property name="text">
-           <string>C相视在功率</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </widget>
-    <widget class="QWidget" name="layoutWidget_3">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>310</y>
-       <width>302</width>
-       <height>27</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_31">
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_32">
-        <item>
-         <widget class="QCheckBox" name="checkBox_18">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="checked">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="A_factor_power">
-          <property name="text">
-           <string>A相功率因数</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_33">
-        <item>
-         <widget class="QCheckBox" name="checkBox_19">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="checked">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="B_factor_power">
-          <property name="text">
-           <string>B相功率因数</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_34">
-        <item>
-         <widget class="QCheckBox" name="checkBox_20">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="checked">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="C_factor_power">
-          <property name="text">
-           <string>C相功率因数</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </widget>
-    <widget class="QWidget" name="layoutWidget_4">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>340</y>
-       <width>302</width>
-       <height>27</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_35">
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_36">
-        <item>
-         <widget class="QCheckBox" name="checkBox_21">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="checked">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="Total_active_power">
-          <property name="text">
-           <string>总有功功率</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_37">
-        <item>
-         <widget class="QCheckBox" name="checkBox_22">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="checked">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="Total_Reactive_power">
-          <property name="text">
-           <string>总无功功率</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_38">
-        <item>
-         <widget class="QCheckBox" name="checkBox_23">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="checked">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="Total_Apparent_power">
-          <property name="text">
-           <string>总视在功率</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </widget>
-    <widget class="QWidget" name="layoutWidget_5">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>370</y>
-       <width>302</width>
-       <height>27</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_39">
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_40">
-        <item>
-         <widget class="QCheckBox" name="checkBox_24">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="checked">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="A_total_power">
-          <property name="text">
-           <string>A相总电能</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_41">
-        <item>
-         <widget class="QCheckBox" name="checkBox_25">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="checked">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="B_total_power">
-          <property name="text">
-           <string>B相总电能</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_42">
-        <item>
-         <widget class="QCheckBox" name="checkBox_26">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="checked">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="C_total_power">
-          <property name="text">
-           <string>C相总电能</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </widget>
-    <widget class="QWidget" name="layoutWidget">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
        <y>20</y>
        <width>310</width>
        <height>87</height>
@@ -714,82 +339,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>220</y>
-       <width>302</width>
-       <height>27</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_18">
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_20">
-        <item>
-         <widget class="QCheckBox" name="checkBox_9">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="checked">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="A_active_power">
-          <property name="text">
-           <string>A相有功功率</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_21">
-        <item>
-         <widget class="QCheckBox" name="checkBox_10">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="checked">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="B_active_power">
-          <property name="text">
-           <string>B相有功功率</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_22">
-        <item>
-         <widget class="QCheckBox" name="checkBox_11">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="checked">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="C_active_power">
-          <property name="text">
-           <string>C相有功功率</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </widget>
-    <widget class="QWidget" name="layoutWidget">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>130</y>
+       <y>120</y>
        <width>343</width>
        <height>27</height>
       </rect>
@@ -860,166 +410,16 @@
       </item>
      </layout>
     </widget>
-    <widget class="QWidget" name="layoutWidget">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>190</y>
-       <width>302</width>
-       <height>27</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_16">
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_11">
-        <item>
-         <widget class="QCheckBox" name="checkBox_6">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="checked">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="A_Electric">
-          <property name="text">
-           <string>A相电流</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_12">
-        <item>
-         <widget class="QCheckBox" name="checkBox_7">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="checked">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="B_Electric">
-          <property name="text">
-           <string>B相电流</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_15">
-        <item>
-         <widget class="QCheckBox" name="checkBox_8">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="checked">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="C_Electric">
-          <property name="text">
-           <string>C相电流</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </widget>
-    <widget class="QWidget" name="layoutWidget_6">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>160</y>
-       <width>302</width>
-       <height>27</height>
-      </rect>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_45">
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_13">
-        <item>
-         <widget class="QCheckBox" name="checkBox_3">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="checked">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="A_Voltage">
-          <property name="text">
-           <string>A相电压</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_14">
-        <item>
-         <widget class="QCheckBox" name="checkBox_4">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="checked">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="B_Voltage">
-          <property name="text">
-           <string>B相电压</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_46">
-        <item>
-         <widget class="QCheckBox" name="checkBox_5">
-          <property name="text">
-           <string/>
-          </property>
-          <property name="checked">
-           <bool>false</bool>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="C_Voltage">
-          <property name="text">
-           <string>C相电压</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-     </layout>
-    </widget>
     <widget class="QWidget" name="">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>400</y>
-       <width>251</width>
+       <x>12</x>
+       <y>416</y>
+       <width>334</width>
        <height>27</height>
       </rect>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_44">
+     <layout class="QHBoxLayout" name="horizontalLayout_47">
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_43">
         <item>
@@ -1042,6 +442,27 @@
        </layout>
       </item>
       <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_44">
+        <item>
+         <widget class="QCheckBox" name="checkBox_29">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="checked">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="Temperature_humidity">
+          <property name="text">
+           <string>读温湿度</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
        <widget class="QCheckBox" name="checkBox_28">
         <property name="text">
          <string>全选</string>
@@ -1057,12 +478,560 @@
       </item>
      </layout>
     </widget>
+    <widget class="QWidget" name="">
+     <property name="geometry">
+      <rect>
+       <x>11</x>
+       <y>151</y>
+       <width>304</width>
+       <height>260</height>
+      </rect>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_45">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_13">
+          <item>
+           <widget class="QCheckBox" name="checkBox_3">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="A_Voltage">
+            <property name="text">
+             <string>A相电压</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_14">
+          <item>
+           <widget class="QCheckBox" name="checkBox_4">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="B_Voltage">
+            <property name="text">
+             <string>B相电压</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_46">
+          <item>
+           <widget class="QCheckBox" name="checkBox_5">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="C_Voltage">
+            <property name="text">
+             <string>C相电压</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+      <item row="1" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_16">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_11">
+          <item>
+           <widget class="QCheckBox" name="checkBox_6">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="A_Electric">
+            <property name="text">
+             <string>A相电流</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_12">
+          <item>
+           <widget class="QCheckBox" name="checkBox_7">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="B_Electric">
+            <property name="text">
+             <string>B相电流</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_15">
+          <item>
+           <widget class="QCheckBox" name="checkBox_8">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="C_Electric">
+            <property name="text">
+             <string>C相电流</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+      <item row="2" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_18">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_20">
+          <item>
+           <widget class="QCheckBox" name="checkBox_9">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="A_active_power">
+            <property name="text">
+             <string>A相有功功率</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_21">
+          <item>
+           <widget class="QCheckBox" name="checkBox_10">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="B_active_power">
+            <property name="text">
+             <string>B相有功功率</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_22">
+          <item>
+           <widget class="QCheckBox" name="checkBox_11">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="C_active_power">
+            <property name="text">
+             <string>C相有功功率</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+      <item row="3" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_23">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_24">
+          <item>
+           <widget class="QCheckBox" name="checkBox_12">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="A_Reactive_power">
+            <property name="text">
+             <string>A相无功功率</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_25">
+          <item>
+           <widget class="QCheckBox" name="checkBox_13">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="B_Reactive_power">
+            <property name="text">
+             <string>B相无功功率</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_26">
+          <item>
+           <widget class="QCheckBox" name="checkBox_14">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="C_Reactive_power">
+            <property name="text">
+             <string>C相无功功率</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+      <item row="4" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_27">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_28">
+          <item>
+           <widget class="QCheckBox" name="checkBox_15">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="A_Apparent_power">
+            <property name="text">
+             <string>A相视在功率</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_29">
+          <item>
+           <widget class="QCheckBox" name="checkBox_16">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="B_Apparent_power">
+            <property name="text">
+             <string>B相视在功率</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_30">
+          <item>
+           <widget class="QCheckBox" name="checkBox_17">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="C_Apparent_power">
+            <property name="text">
+             <string>C相视在功率</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+      <item row="5" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_31">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_32">
+          <item>
+           <widget class="QCheckBox" name="checkBox_18">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="A_factor_power">
+            <property name="text">
+             <string>A相功率因数</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_33">
+          <item>
+           <widget class="QCheckBox" name="checkBox_19">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="B_factor_power">
+            <property name="text">
+             <string>B相功率因数</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_34">
+          <item>
+           <widget class="QCheckBox" name="checkBox_20">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="C_factor_power">
+            <property name="text">
+             <string>C相功率因数</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+      <item row="6" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_35">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_36">
+          <item>
+           <widget class="QCheckBox" name="checkBox_21">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="Total_active_power">
+            <property name="text">
+             <string>总有功功率</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_37">
+          <item>
+           <widget class="QCheckBox" name="checkBox_22">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="Total_Reactive_power">
+            <property name="text">
+             <string>总无功功率</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_38">
+          <item>
+           <widget class="QCheckBox" name="checkBox_23">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="Total_Apparent_power">
+            <property name="text">
+             <string>总视在功率</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+      <item row="7" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_39">
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_40">
+          <item>
+           <widget class="QCheckBox" name="checkBox_24">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="A_total_power">
+            <property name="text">
+             <string>A相总电能</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_41">
+          <item>
+           <widget class="QCheckBox" name="checkBox_25">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="B_total_power">
+            <property name="text">
+             <string>B相总电能</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" name="horizontalLayout_42">
+          <item>
+           <widget class="QCheckBox" name="checkBox_26">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="C_total_power">
+            <property name="text">
+             <string>C相总电能</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
    </widget>
    <widget class="QGroupBox" name="extraSetting">
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>450</y>
+      <y>460</y>
       <width>341</width>
       <height>111</height>
      </rect>

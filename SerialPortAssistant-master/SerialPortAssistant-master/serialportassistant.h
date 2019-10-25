@@ -60,55 +60,32 @@ public slots:
 
 private slots:
     void on_A_Electric_clicked();
-
     void on_B_Electric_clicked();
-
     void on_C_Electric_clicked();
-
     void on_A_active_power_clicked();
-
     void on_B_active_power_clicked();
-
     void on_C_active_power_clicked();
-
     void on_A_Reactive_power_clicked();
-
     void on_B_Reactive_power_clicked();
-
     void on_C_Reactive_power_clicked();
-
     void on_A_Apparent_power_clicked();
-
     void on_B_Apparent_power_clicked();
-
     void on_C_Apparent_power_clicked();
-
     void on_A_factor_power_clicked();
-
     void on_B_factor_power_clicked();
-
     void on_C_factor_power_clicked();
-
     void on_Total_active_power_clicked();
-
     void on_Total_Reactive_power_clicked();
-
     void on_Total_Apparent_power_clicked();
-
     void on_Total_power_factor__clicked();
-
     void on_A_Voltage_clicked();
-
     void on_B_Voltage_clicked();
-
     void on_C_Voltage_clicked();
     void on_N_Electric_clicked();
-
     void on_A_total_power_clicked();
-
     void on_B_total_power_clicked();
-
     void on_C_total_power_clicked();
+    void on_Temperature_humidity_clicked();
 
     void on_testall_clicked();
 
@@ -125,7 +102,6 @@ private:
     int looptimes;
     void initSerialPortSetting(void);
     void connections(void);
-
 
 #ifdef DEBUG
     void test(void);
