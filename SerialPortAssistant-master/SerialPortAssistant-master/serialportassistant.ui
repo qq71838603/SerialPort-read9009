@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>842</width>
-    <height>607</height>
+    <height>625</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -410,7 +410,7 @@
       </item>
      </layout>
     </widget>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>12</x>
@@ -478,7 +478,7 @@
       </item>
      </layout>
     </widget>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>11</x>
@@ -1033,7 +1033,7 @@
       <x>0</x>
       <y>460</y>
       <width>341</width>
-      <height>111</height>
+      <height>101</height>
      </rect>
     </property>
     <property name="minimumSize">
@@ -1051,77 +1051,88 @@
     <property name="title">
      <string>辅助功能</string>
     </property>
-    <widget class="QWidget" name="layoutWidget">
+    <widget class="QWidget" name="">
      <property name="geometry">
       <rect>
-       <x>12</x>
-       <y>22</y>
-       <width>279</width>
-       <height>69</height>
+       <x>14</x>
+       <y>24</y>
+       <width>277</width>
+       <height>71</height>
       </rect>
      </property>
-     <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="0">
-       <widget class="QCheckBox" name="autoNewLine">
+     <layout class="QGridLayout" name="gridLayout_4">
+      <item row="0" column="0" colspan="3">
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0">
+         <widget class="QCheckBox" name="autoNewLine">
+          <property name="text">
+           <string>自动换行</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1" colspan="2">
+         <widget class="QCheckBox" name="doubleColor">
+          <property name="text">
+           <string>收发双色显示</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="QCheckBox" name="showTime">
+          <property name="text">
+           <string>显示收发时间</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="2">
+         <widget class="QCheckBox" name="hexadecimaleReceive">
+          <property name="text">
+           <string>十六进制显示</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2" colspan="2">
+         <widget class="QCheckBox" name="hexadecimalSend">
+          <property name="enabled">
+           <bool>true</bool>
+          </property>
+          <property name="tabletTracking">
+           <bool>false</bool>
+          </property>
+          <property name="text">
+           <string>十六进制发送</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="1" column="0">
+       <widget class="QPushButton" name="query_version">
         <property name="text">
-         <string>自动换行</string>
+         <string>查询软件版本</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="1" colspan="2">
-       <widget class="QCheckBox" name="doubleColor">
-        <property name="text">
-         <string>收发双色显示</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="3">
-       <widget class="QCheckBox" name="showTime">
-        <property name="text">
-         <string>显示收发时间</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0" colspan="2">
-       <widget class="QCheckBox" name="hexadecimaleReceive">
-        <property name="text">
-         <string>十六进制显示</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2" colspan="2">
-       <widget class="QCheckBox" name="hexadecimalSend">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="tabletTracking">
-         <bool>false</bool>
-        </property>
-        <property name="text">
-         <string>十六进制发送</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="2" colspan="2">
-       <widget class="QPushButton" name="clear">
-        <property name="text">
-         <string>清空接受数据</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0" colspan="2">
+      <item row="1" column="1">
        <widget class="QPushButton" name="sendFile">
         <property name="text">
          <string>发送文件</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QPushButton" name="clear">
+        <property name="text">
+         <string>清空接受数据</string>
         </property>
        </widget>
       </item>

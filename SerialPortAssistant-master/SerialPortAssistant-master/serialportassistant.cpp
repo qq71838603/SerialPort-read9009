@@ -148,6 +148,7 @@ void SerialPortAssistant::insertDataDisplay_(const QString& text, const QColor& 
 }
 
 
+
 /* Open or close the serial port. */
 void SerialPortAssistant::switchSerialPort(void)
 {
@@ -196,6 +197,18 @@ void SerialPortAssistant::switchSerialPort(void)
     /* Enable or disable ui->send QPushButton. */
     ui->send->setEnabled(isPortOpen);
     ui->sendFile->setEnabled(isPortOpen);
+}
+
+
+/*data reverse*/
+QString reversalStr(QString &str)
+{
+    QString ret;
+    for(QChar sz:str)
+    {
+        ret.push_front(sz);
+    }
+    return ret;
 }
 
 /* Receive data from serial port. */
@@ -278,27 +291,29 @@ void SerialPortAssistant::receive(void)
             //电网频率
             else if(listdisplay[16] == "b3" || listdisplay[16] == "B3")
             {
-                listdisplay[19] = QString::number((listdisplay[19].toInt(nullptr,16) - 0x33),16);
-                listdisplay[19] = QString("%1").arg(listdisplay[19].toInt(), 2, 10, QLatin1Char('0'));
-                listdisplay[18] = QString::number((listdisplay[18].toInt(nullptr,16) - 0x33),16);
-                listdisplay[18] = QString("%1").arg(listdisplay[18].toInt(), 2, 10, QLatin1Char('0'));
+                if(listdisplay[18] == "37")
+                {
+                    listdisplay[19] = QString::number((listdisplay[19].toInt(nullptr,16) - 0x33),16);
+                    listdisplay[19] = QString("%1").arg(listdisplay[19].toInt(), 2, 10, QLatin1Char('0'));
+                    listdisplay[18] = QString::number((listdisplay[18].toInt(nullptr,16) - 0x33),16);
+                    listdisplay[18] = QString("%1").arg(listdisplay[18].toInt(), 2, 10, QLatin1Char('0'));
 
-                tempdata = listdisplay[19] + listdisplay[18];
-                showdata = tempdata.mid(0,2) + "." + tempdata.mid(1,2)+ "\n";
+                    tempdata = listdisplay[19] + listdisplay[18];
+                    showdata = tempdata.mid(0,2) + "." + tempdata.mid(1,2)+ "\n";
 
-                insertDataDisplay_(showdata,ui->doubleColor->isChecked() ? Qt::blue : Qt::black);
-                enddisplay.clear();
-                showdata.clear();
-                listdisplay.clear();
-                flag = 0;
+                    insertDataDisplay_(showdata,ui->doubleColor->isChecked() ? Qt::blue : Qt::black);
+                    enddisplay.clear();
+                    showdata.clear();
+                    listdisplay.clear();
+                    flag = 0;
+                }
             }
-
         }
         //电流,有功功率,无功功率,视在功率分割为25个数据
         else if(listdisplay.count() == 25)
         {
             QString tempdata,showdata;
-            //电流
+            //读取电流
             if(listdisplay[16] == "35" && listdisplay[17] == "35")
             {
                 listdisplay[20] = QString::number((listdisplay[20].toInt(nullptr,16) - 0x33),16);
@@ -317,23 +332,28 @@ void SerialPortAssistant::receive(void)
                 listdisplay.clear();
                 flag = 0;
             }
+            //读取零线电流
             else if(listdisplay[16] == "b3" || listdisplay[16] == "B3")
             {
-                listdisplay[20] = QString::number((listdisplay[20].toInt(nullptr,16) - 0x33),16);
-                listdisplay[20] = QString("%1").arg(listdisplay[20].toInt(), 2, 10, QLatin1Char('0'));
-                listdisplay[19] = QString::number((listdisplay[19].toInt(nullptr,16) - 0x33),16);
-                listdisplay[19] = QString("%1").arg(listdisplay[19].toInt(), 2, 10, QLatin1Char('0'));
-                listdisplay[18] = QString::number((listdisplay[18].toInt(nullptr,16) - 0x33),16);
-                listdisplay[18] = QString("%1").arg(listdisplay[18].toInt(), 2, 10, QLatin1Char('0'));
+                //为了区分读取版本号的指令
+                if(listdisplay[17] == "35")
+                {
+                    listdisplay[20] = QString::number((listdisplay[20].toInt(nullptr,16) - 0x33),16);
+                    listdisplay[20] = QString("%1").arg(listdisplay[20].toInt(), 2, 10, QLatin1Char('0'));
+                    listdisplay[19] = QString::number((listdisplay[19].toInt(nullptr,16) - 0x33),16);
+                    listdisplay[19] = QString("%1").arg(listdisplay[19].toInt(), 2, 10, QLatin1Char('0'));
+                    listdisplay[18] = QString::number((listdisplay[18].toInt(nullptr,16) - 0x33),16);
+                    listdisplay[18] = QString("%1").arg(listdisplay[18].toInt(), 2, 10, QLatin1Char('0'));
 
-                tempdata = listdisplay[20] + listdisplay[19] + listdisplay[18] ;
-                showdata = tempdata.mid(0,3) + "." + tempdata.mid(3,3)+ "\n";
+                    tempdata = listdisplay[20] + listdisplay[19] + listdisplay[18] ;
+                    showdata = tempdata.mid(0,3) + "." + tempdata.mid(3,3)+ "\n";
 
-                insertDataDisplay_(showdata,ui->doubleColor->isChecked() ? Qt::blue : Qt::black);
-                enddisplay.clear();
-                showdata.clear();
-                listdisplay.clear();
-                flag = 0;
+                    insertDataDisplay_(showdata,ui->doubleColor->isChecked() ? Qt::blue : Qt::black);
+                    enddisplay.clear();
+                    showdata.clear();
+                    listdisplay.clear();
+                    flag = 0;
+                }
             }
             //有功功率,无功功率,视在功率
             else if(listdisplay[16] == "36" || listdisplay[16] == "37" || listdisplay[16] == "38" )
@@ -389,7 +409,7 @@ void SerialPortAssistant::receive(void)
         //qDebug()<< "listdisplayt:"<<listdisplay;
         //qDebug()<< "listdisplay.count:"<<listdisplay.count();
         int tep,hum;
-        if(listdisplay.count() == 34)
+        if(listdisplay.count() == 34 && listdisplay[16] == "3a")
         {
             listdisplay[18] = QString::number((listdisplay[18].toInt(nullptr,16) - 0x33),16);
             listdisplay[19] = QString::number((listdisplay[19].toInt(nullptr,16) - 0x33),16);
@@ -411,7 +431,38 @@ void SerialPortAssistant::receive(void)
             flag = 0;
         }
     }
-    if(flag == 12)
+    //用于读取软件版本,分了16段或者是17段来读取软件版本
+    else if(flag == 15 || flag == 16 || flag == 17)
+    {
+        QStringList listdisplay = enddisplay.split(" ");
+        QString showdata,reservedata;
+        //qDebug()<< "listdisplayt:"<<listdisplay;
+        //qDebug()<< "listdisplay.count:"<<listdisplay.count();
+        //软件版本接受数据长度为54
+        if(listdisplay.count() == 54  )
+        {
+            for(int i = 0; i< 32 ;i++)
+            {
+                listdisplay[i+18] = QString::number((listdisplay[i+18].toInt(nullptr,16) - 0x33),16);
+                //如果为0则补为00
+                if(listdisplay[i+18] == "0")
+                {
+                    listdisplay[i+18] = QString("%1").arg(listdisplay[i+18].toInt(), 2, 10, QLatin1Char('0'));
+                }
+                reservedata = reservedata + listdisplay[i+18];
+            }
+            //将得到的字符串反转
+            showdata = reversalStr(reservedata);
+            showdata = showdata +"\n";
+
+            insertDataDisplay_(showdata,ui->doubleColor->isChecked() ? Qt::blue : Qt::black);
+            showdata.clear();
+            listdisplay.clear();
+            enddisplay.clear();
+            flag = 0;
+        }
+    }
+    else if(flag == 18)
     {
         flag = 0;
         enddisplay.clear();
@@ -645,6 +696,51 @@ void SerialPortAssistant::on_N_Electric_clicked()
 {
     QString data = "68 11 11 11 11 11 11 68 11 04 34 33 B3 35 9A 16";
     QString dataname = "零线电流:";
+    // 串口未打开
+    if ( !isPortOpen )
+    {
+        QMessageBox::warning(this, tr("Error"), QString::fromLocal8Bit("串口未打开，发送失败"), QMessageBox::Ok);
+        return;
+    }
+
+    char16_t i,num = 0;
+    QByteArray send_data;
+    int len = data.length();
+    QString send_str,showData = "\n发送信息->" + data;
+    for(i=0;i<len;i++)
+    {
+        if(data.at(i)!= ' ')
+        {
+            send_str[num] = data.at(i);
+            num ++;
+        }
+    }
+    StringToHex(data,send_data);//将str字符串转换为16进制的形式
+    send_data.resize(num/2);
+    port->write(send_data);
+
+    /* Add time to show. */
+    if(ui->showTime->isChecked())
+    {
+        QDateTime time = QDateTime::currentDateTime();
+        showData = time.toString("yyyy-MM-dd hh:mm:ss") + " : " + showData;
+    }
+    /* Add newline to show. */
+    if(ui->autoNewLine->isChecked())
+    {
+        showData += "\n";
+    }
+    /* Show data. */
+    showData += "\n";
+    insertDataDisplay(showData,ui->doubleColor->isChecked() ? Qt::green : Qt::black);
+    insertDataDisplay_(dataname,ui->doubleColor->isChecked() ? Qt::blue : Qt::black);
+}
+
+/*查询软件版本*/
+void SerialPortAssistant::on_query_version_clicked()
+{
+    QString data = "68 11 11 11 11 11 11 68 11 04 34 33 B3 37 9C 16";
+    QString dataname = "软件版本:";
     // 串口未打开
     if ( !isPortOpen )
     {
@@ -1254,5 +1350,12 @@ void SerialPortAssistant::on_checkBox_28_stateChanged()
         ui->checkBox_29->setChecked(false);
     }
 }
+
+
+
+
+
+
+
 
 

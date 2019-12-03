@@ -91,6 +91,8 @@ private slots:
 
     void on_checkBox_28_stateChanged();
 
+    void on_query_version_clicked();
+
 private:
     Ui::SerialPortAssistant *ui;
     HelpDialog* helpDialog;
