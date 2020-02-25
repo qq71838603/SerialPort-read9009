@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Loss_pressure</class>
+ <widget class="QWidget" name="Loss_pressure">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>301</width>
+    <height>340</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QWidget" name="">
+   <property name="geometry">
+    <rect>
+     <x>12</x>
+     <y>12</y>
+     <width>274</width>
+     <height>317</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QPushButton" name="pushButton">
+      <property name="text">
+       <string>A,B,C相失压总次数,总累计时间</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
+       <widget class="QPushButton" name="Loss_pressureA1">
+        <property name="text">
+         <string>A相失压记录1</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QPushButton" name="Loss_pressureB1">
+        <property name="text">
+         <string>B相失压记录1</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QPushButton" name="Loss_pressureC1">
+        <property name="text">
+         <string>C相失压记录1</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QPushButton" name="Loss_pressureA2">
+        <property name="text">
+         <string>A相失压记录2</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QPushButton" name="Loss_pressureB2">
+        <property name="text">
+         <string>B相失压记录2</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QPushButton" name="Loss_pressureC2">
+        <property name="text">
+         <string>C相失压记录2</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QPushButton" name="Loss_pressureA3">
+        <property name="text">
+         <string>A相失压记录3</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QPushButton" name="Loss_pressureB3">
+        <property name="text">
+         <string>B相失压记录3</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QPushButton" name="Loss_pressureC3">
+        <property name="text">
+         <string>C相失压记录3</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QPushButton" name="Loss_pressureA4">
+        <property name="text">
+         <string>A相失压记录4</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QPushButton" name="Loss_pressureB4">
+        <property name="text">
+         <string>B相失压记录4</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2">
+       <widget class="QPushButton" name="Loss_pressureC4">
+        <property name="text">
+         <string>C相失压记录4</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QPushButton" name="Loss_pressureA5">
+        <property name="text">
+         <string>A相失压记录5</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QPushButton" name="Loss_pressureB5">
+        <property name="text">
+         <string>B相失压记录5</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="2">
+       <widget class="QPushButton" name="Loss_pressureC5">
+        <property name="text">
+         <string>C相失压记录5</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0">
+       <widget class="QPushButton" name="Loss_pressureA6">
+        <property name="text">
+         <string>A相失压记录6</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QPushButton" name="Loss_pressureB6">
+        <property name="text">
+         <string>B相失压记录6</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="2">
+       <widget class="QPushButton" name="Loss_pressureC6">
+        <property name="text">
+         <string>C相失压记录6</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0">
+       <widget class="QPushButton" name="Loss_pressureA7">
+        <property name="text">
+         <string>A相失压记录7</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="1">
+       <widget class="QPushButton" name="Loss_pressureB7">
+        <property name="text">
+         <string>B相失压记录7</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="2">
+       <widget class="QPushButton" name="Loss_pressureC7">
+        <property name="text">
+         <string>C相失压记录7</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="0">
+       <widget class="QPushButton" name="Loss_pressureA8">
+        <property name="text">
+         <string>A相失压记录8</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="1">
+       <widget class="QPushButton" name="Loss_pressureB8">
+        <property name="text">
+         <string>B相失压记录8</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="2">
+       <widget class="QPushButton" name="Loss_pressureC8">
+        <property name="text">
+         <string>C相失压记录8</string>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="0">
+       <widget class="QPushButton" name="Loss_pressureA9">
+        <property name="text">
+         <string>A相失压记录9</string>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="1">
+       <widget class="QPushButton" name="Loss_pressureB9">
+        <property name="text">
+         <string>B相失压记录9</string>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="2">
+       <widget class="QPushButton" name="Loss_pressureC9">
+        <property name="text">
+         <string>C相失压记录9</string>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="0">
+       <widget class="QPushButton" name="Loss_pressureA10">
+        <property name="text">
+         <string>A相失压记录10</string>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="1">
+       <widget class="QPushButton" name="Loss_pressureB10">
+        <property name="text">
+         <string>B相失压记录10</string>
+        </property>
+       </widget>
+      </item>
+      <item row="9" column="2">
+       <widget class="QPushButton" name="Loss_pressureC10">
+        <property name="text">
+         <string>C相失压记录10</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

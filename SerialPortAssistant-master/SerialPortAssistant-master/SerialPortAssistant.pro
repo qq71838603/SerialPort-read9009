@@ -14,12 +14,21 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         serialportassistant.cpp \
-    helpdialog.cpp
+    helpdialog.cpp \
+    event_log.cpp \
+    loss_pressure.cpp \
+    undervoltage.cpp
 
 HEADERS  += serialportassistant.h \
-    helpdialog.h
+    helpdialog.h \
+    event_log.h \
+    loss_pressure.h \
+    undervoltage.h
 
-FORMS    += serialportassistant.ui
+FORMS    += serialportassistant.ui \
+    event_log.ui \
+    loss_pressure.ui \
+    undervoltage.ui
 
 CONFIG += c++11
 

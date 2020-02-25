@@ -13,6 +13,8 @@
 #include <QTimer>
 #include <QScrollBar>
 #include "helpdialog.h"
+#include "event_log.h"
+
 
 #ifdef DEBUG
 #include <QDebug>
@@ -37,9 +39,13 @@ public:
     void insertDataDisplay(const QString& text,const QColor& color=Qt::black);
     void insertDataDisplay_(const QString& text,const QColor& color=Qt::black);
     void Handle_data(QString& text1,const QString& text2);
+
     bool sleep(int msec);
     QString enddisplay;
     int flag = 0;
+
+    Event_log *v;
+
 
 public slots:
     void switchSerialPort(void);
@@ -92,6 +98,10 @@ private slots:
     void on_checkBox_28_stateChanged();
 
     void on_query_version_clicked();
+
+    void receivedata(QString text1,const QString text2);
+
+    void on_pushButton_clicked();
 
 private:
     Ui::SerialPortAssistant *ui;

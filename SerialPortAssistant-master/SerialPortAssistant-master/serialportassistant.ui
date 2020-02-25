@@ -62,6 +62,13 @@
           </widget>
          </item>
          <item>
+          <widget class="QPushButton" name="pushButton">
+           <property name="text">
+            <string>事件记录</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <widget class="QGroupBox" name="loopSetting">
            <property name="maximumSize">
             <size>
@@ -1051,7 +1058,7 @@
     <property name="title">
      <string>辅助功能</string>
     </property>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>14</x>

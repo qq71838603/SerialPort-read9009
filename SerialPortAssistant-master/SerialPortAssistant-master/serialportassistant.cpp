@@ -10,6 +10,9 @@ SerialPortAssistant::SerialPortAssistant(QWidget *parent) :
     ui(new Ui::SerialPortAssistant)
 {
     ui->setupUi(this);
+
+    SerialPortAssistant::v = new Event_log;
+
     port = new QSerialPort(this);
     helpDialog = new HelpDialog(this);
     timer = new QTimer(this);
@@ -18,7 +21,9 @@ SerialPortAssistant::SerialPortAssistant(QWidget *parent) :
     ui->delay->setValidator(new QIntValidator(0, 10000, this));
     ui->times->setValidator(new QIntValidator(0, 10000, this));
     initSerialPortSetting();
+
     connections();
+
 
 #ifdef DEBUG
     test();
@@ -83,6 +88,9 @@ void SerialPortAssistant::initSerialPortSetting(void)
 /* Connect all signals and slots. */
 void SerialPortAssistant::connections(void)
 {
+    /*event log*/
+    connect(v,SIGNAL(sendData(QString,QString)),this,SLOT(receivedata(QString,QString)));
+
     /* Close */
     connect(ui->actionExit,&QAction::triggered,this,&SerialPortAssistant::close);
 
@@ -120,6 +128,8 @@ void SerialPortAssistant::connections(void)
 
     /* Stop transmit loop */
     connect(timer,&QTimer::timeout,[&]{looptimes--;if(looptimes<=0) timer->stop();});
+
+
 }
 
 /* Insert text into ui->dataDisplay with color(default black). */
@@ -1354,8 +1364,14 @@ void SerialPortAssistant::on_checkBox_28_stateChanged()
 
 
 
+void SerialPortAssistant::receivedata(QString text1,const QString text2)
+{
+    qDebug()<< "text1 is :"<<text1<< "text2 is :" <<text2;
+    Handle_data(text1,text2);
+}
 
-
-
-
-
+/*事件记录页面显示按钮*/
+void SerialPortAssistant::on_pushButton_clicked()
+{
+    v->show();
+}
