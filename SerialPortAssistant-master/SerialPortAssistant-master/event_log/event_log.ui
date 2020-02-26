@@ -89,7 +89,7 @@
     <item row="3" column="0">
      <widget class="QPushButton" name="breakvoltage">
       <property name="text">
-       <string>断压记录</string>
+       <string>断相记录</string>
       </property>
      </widget>
     </item>
@@ -97,6 +97,13 @@
      <widget class="QPushButton" name="powerdown">
       <property name="text">
        <string>掉电记录</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="2">
+     <widget class="QPushButton" name="overcurrent">
+      <property name="text">
+       <string>过流记录</string>
       </property>
      </widget>
     </item>

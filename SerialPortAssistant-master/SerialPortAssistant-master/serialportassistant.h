@@ -13,7 +13,7 @@
 #include <QTimer>
 #include <QScrollBar>
 #include "helpdialog.h"
-#include "event_log.h"
+#include "event_log/event_log.h"
 
 
 #ifdef DEBUG

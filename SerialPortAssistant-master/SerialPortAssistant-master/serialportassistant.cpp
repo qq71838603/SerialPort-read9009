@@ -11,6 +11,7 @@ SerialPortAssistant::SerialPortAssistant(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    //总记录界面
     SerialPortAssistant::v = new Event_log;
 
     port = new QSerialPort(this);
@@ -254,6 +255,13 @@ void SerialPortAssistant::receive(void)
 
     flag ++;
     enddisplay += display;
+
+
+    QStringList listdisplay = enddisplay.split(" ");
+    qDebug()<< "listdisplayt:"<<listdisplay;
+    qDebug()<< "listdisplay.count:"<<listdisplay.count();
+
+
     //接受到的数据分为多段,平均7-8次发送完全部数据
     if(flag == 6 || flag == 7 || flag == 8)
     {
@@ -412,7 +420,7 @@ void SerialPortAssistant::receive(void)
         }
         //else if()
     }
-    //用于读取温湿度,分了十段或者是十一段来读取温湿度
+    //用于读取温湿度,分了10段或者是11段来读取温湿度
     else if(flag == 10 || flag == 11)
     {
         QStringList listdisplay = enddisplay.split(" ");
@@ -477,6 +485,7 @@ void SerialPortAssistant::receive(void)
         flag = 0;
         enddisplay.clear();
     }
+
 }
 
 /* Start send. */
@@ -1361,13 +1370,10 @@ void SerialPortAssistant::on_checkBox_28_stateChanged()
     }
 }
 
-
-
-
-void SerialPortAssistant::receivedata(QString text1,const QString text2)
+void SerialPortAssistant::receivedata(QString text1, QString text2)
 {
     qDebug()<< "text1 is :"<<text1<< "text2 is :" <<text2;
-    Handle_data(text1,text2);
+    Handle_data(text2,text1);
 }
 
 /*事件记录页面显示按钮*/
