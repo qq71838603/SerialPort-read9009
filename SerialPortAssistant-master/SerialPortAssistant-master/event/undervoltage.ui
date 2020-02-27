@@ -6,24 +6,47 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>220</width>
+    <height>262</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QPushButton" name="ABCUndervoltage">
+  <widget class="QComboBox" name="comboBox">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>30</y>
-     <width>251</width>
+     <x>20</x>
+     <y>50</y>
+     <width>191</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="query_button">
+   <property name="geometry">
+    <rect>
+     <x>140</x>
+     <y>230</y>
+     <width>75</width>
      <height>23</height>
     </rect>
    </property>
    <property name="text">
-    <string>A,B,C相失压总次数,总累计时间</string>
+    <string>查询</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="ABCUndervoltage">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>10</y>
+     <width>191</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>A,B,C相欠压总次数,总累计时间</string>
    </property>
   </widget>
  </widget>

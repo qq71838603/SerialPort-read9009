@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>239</width>
+    <height>280</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,14 +16,37 @@
   <widget class="QPushButton" name="ABCbreakvoltage">
    <property name="geometry">
     <rect>
-     <x>80</x>
-     <y>20</y>
+     <x>10</x>
+     <y>10</y>
      <width>221</width>
      <height>23</height>
     </rect>
    </property>
    <property name="text">
     <string>A,B,C相断相总次数,总累计时间</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="query_button">
+   <property name="geometry">
+    <rect>
+     <x>160</x>
+     <y>250</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>查询</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="comboBox">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>40</y>
+     <width>221</width>
+     <height>22</height>
+    </rect>
    </property>
   </widget>
  </widget>

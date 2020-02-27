@@ -92,15 +92,10 @@ private slots:
     void on_B_total_power_clicked();
     void on_C_total_power_clicked();
     void on_Temperature_humidity_clicked();
-
     void on_testall_clicked();
-
     void on_checkBox_28_stateChanged();
-
     void on_query_version_clicked();
-
     void receivedata(QString text1,const QString text2);
-
     void on_pushButton_clicked();
 
 private:
@@ -114,6 +109,8 @@ private:
     int looptimes;
     void initSerialPortSetting(void);
     void connections(void);
+    QString Qstringtransform(QString text);
+    QString getvalue(QStringList listdisplay,int num,int datalong,int spot);
 
 #ifdef DEBUG
     void test(void);

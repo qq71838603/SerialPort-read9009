@@ -222,6 +222,32 @@ QString reversalStr(QString &str)
     return ret;
 }
 
+/*将字符串转换,十六进制转换为十进制,如果为0则补一位0*/
+QString SerialPortAssistant::Qstringtransform(QString text)
+{
+    text = QString::number((text.toInt(nullptr,16) - 0x33),16);
+    text = QString("%1").arg(text.toInt(), 2, 10, QLatin1Char('0'));
+    return text;
+}
+
+//得到需要的字符串数据,一并处理小数点
+QString SerialPortAssistant::getvalue(QStringList listdisplay,int num,int datalong,int spot)
+{
+    QString returnString;
+    //算到总的数据长度后从后往前读取数据
+    for(int i = num;i > num-datalong ; i--)
+    {
+        returnString = returnString + listdisplay[i];
+    }
+    //如果有小数点处理则在相应位置加上小数点
+    if(spot > 0)
+    {
+        returnString = returnString.mid(0,spot) + "." + returnString.mid(spot,datalong*2);
+    }
+
+    return returnString;
+}
+
 /* Receive data from serial port. */
 void SerialPortAssistant::receive(void)
 {
@@ -253,14 +279,13 @@ void SerialPortAssistant::receive(void)
     else
         insertDataDisplay(display,ui->doubleColor->isChecked() ? Qt::blue : Qt::black);
 
+    //获取信息分段数目
     flag ++;
     enddisplay += display;
-
 
     QStringList listdisplay = enddisplay.split(" ");
     qDebug()<< "listdisplayt:"<<listdisplay;
     qDebug()<< "listdisplay.count:"<<listdisplay.count();
-
 
     //接受到的数据分为多段,平均7-8次发送完全部数据
     if(flag == 6 || flag == 7 || flag == 8)
@@ -275,10 +300,8 @@ void SerialPortAssistant::receive(void)
             //电压
             if(listdisplay[16] == "34" && listdisplay[17] == "35")
             {
-                listdisplay[19] = QString::number((listdisplay[19].toInt(nullptr,16) - 0x33),16);
-                listdisplay[19] = QString("%1").arg(listdisplay[19].toInt(), 2, 10, QLatin1Char('0'));
-                listdisplay[18] = QString::number((listdisplay[18].toInt(nullptr,16) - 0x33),16);
-                listdisplay[18] = QString("%1").arg(listdisplay[18].toInt(), 2, 10, QLatin1Char('0'));
+                listdisplay[19] = Qstringtransform(listdisplay[19]);
+                listdisplay[18] = Qstringtransform(listdisplay[18]);
 
                 tempdata = listdisplay[19] + listdisplay[18];
                 showdata = tempdata.mid(0,3) + "." + tempdata.mid(3,1)+ "\n";
@@ -292,10 +315,8 @@ void SerialPortAssistant::receive(void)
             //功率因数
             else if(listdisplay[16] == "39")
             {
-                listdisplay[19] = QString::number((listdisplay[19].toInt(nullptr,16) - 0x33),16);
-                listdisplay[19] = QString("%1").arg(listdisplay[19].toInt(), 2, 10, QLatin1Char('0'));
-                listdisplay[18] = QString::number((listdisplay[18].toInt(nullptr,16) - 0x33),16);
-                listdisplay[18] = QString("%1").arg(listdisplay[18].toInt(), 2, 10, QLatin1Char('0'));
+                listdisplay[19] = Qstringtransform(listdisplay[19]);
+                listdisplay[18] = Qstringtransform(listdisplay[18]);
 
                 tempdata = listdisplay[19] + listdisplay[18];
                 showdata = tempdata.mid(0,1) + "." + tempdata.mid(1,3)+ "\n";
@@ -311,10 +332,8 @@ void SerialPortAssistant::receive(void)
             {
                 if(listdisplay[18] == "37")
                 {
-                    listdisplay[19] = QString::number((listdisplay[19].toInt(nullptr,16) - 0x33),16);
-                    listdisplay[19] = QString("%1").arg(listdisplay[19].toInt(), 2, 10, QLatin1Char('0'));
-                    listdisplay[18] = QString::number((listdisplay[18].toInt(nullptr,16) - 0x33),16);
-                    listdisplay[18] = QString("%1").arg(listdisplay[18].toInt(), 2, 10, QLatin1Char('0'));
+                    listdisplay[19] = Qstringtransform(listdisplay[19]);
+                    listdisplay[18] = Qstringtransform(listdisplay[18]);
 
                     tempdata = listdisplay[19] + listdisplay[18];
                     showdata = tempdata.mid(0,2) + "." + tempdata.mid(1,2)+ "\n";
@@ -334,12 +353,9 @@ void SerialPortAssistant::receive(void)
             //读取电流
             if(listdisplay[16] == "35" && listdisplay[17] == "35")
             {
-                listdisplay[20] = QString::number((listdisplay[20].toInt(nullptr,16) - 0x33),16);
-                listdisplay[20] = QString("%1").arg(listdisplay[20].toInt(), 2, 10, QLatin1Char('0'));
-                listdisplay[19] = QString::number((listdisplay[19].toInt(nullptr,16) - 0x33),16);
-                listdisplay[19] = QString("%1").arg(listdisplay[19].toInt(), 2, 10, QLatin1Char('0'));
-                listdisplay[18] = QString::number((listdisplay[18].toInt(nullptr,16) - 0x33),16);
-                listdisplay[18] = QString("%1").arg(listdisplay[18].toInt(), 2, 10, QLatin1Char('0'));
+                listdisplay[20] = Qstringtransform(listdisplay[20]);
+                listdisplay[19] = Qstringtransform(listdisplay[19]);
+                listdisplay[18] = Qstringtransform(listdisplay[18]);
 
                 tempdata = listdisplay[20] + listdisplay[19] + listdisplay[18] ;
                 showdata = tempdata.mid(0,3) + "." + tempdata.mid(3,3)+ "\n";
@@ -356,12 +372,9 @@ void SerialPortAssistant::receive(void)
                 //为了区分读取版本号的指令
                 if(listdisplay[17] == "35")
                 {
-                    listdisplay[20] = QString::number((listdisplay[20].toInt(nullptr,16) - 0x33),16);
-                    listdisplay[20] = QString("%1").arg(listdisplay[20].toInt(), 2, 10, QLatin1Char('0'));
-                    listdisplay[19] = QString::number((listdisplay[19].toInt(nullptr,16) - 0x33),16);
-                    listdisplay[19] = QString("%1").arg(listdisplay[19].toInt(), 2, 10, QLatin1Char('0'));
-                    listdisplay[18] = QString::number((listdisplay[18].toInt(nullptr,16) - 0x33),16);
-                    listdisplay[18] = QString("%1").arg(listdisplay[18].toInt(), 2, 10, QLatin1Char('0'));
+                    listdisplay[20] = Qstringtransform(listdisplay[20]);
+                    listdisplay[19] = Qstringtransform(listdisplay[19]);
+                    listdisplay[18] = Qstringtransform(listdisplay[18]);
 
                     tempdata = listdisplay[20] + listdisplay[19] + listdisplay[18] ;
                     showdata = tempdata.mid(0,3) + "." + tempdata.mid(3,3)+ "\n";
@@ -378,12 +391,9 @@ void SerialPortAssistant::receive(void)
             {
                 if(listdisplay[17] == "35")
                 {
-                    listdisplay[20] = QString::number((listdisplay[20].toInt(nullptr,16) - 0x33),16);
-                    listdisplay[20] = QString("%1").arg(listdisplay[20].toInt(), 2, 10, QLatin1Char('0'));
-                    listdisplay[19] = QString::number((listdisplay[19].toInt(nullptr,16) - 0x33),16);
-                    listdisplay[19] = QString("%1").arg(listdisplay[19].toInt(), 2, 10, QLatin1Char('0'));
-                    listdisplay[18] = QString::number((listdisplay[18].toInt(nullptr,16) - 0x33),16);
-                    listdisplay[18] = QString("%1").arg(listdisplay[18].toInt(), 2, 10, QLatin1Char('0'));
+                    listdisplay[20] = Qstringtransform(listdisplay[20]);
+                    listdisplay[19] = Qstringtransform(listdisplay[19]);
+                    listdisplay[18] = Qstringtransform(listdisplay[18]);
 
                     tempdata = listdisplay[20] + listdisplay[19] + listdisplay[18] ;
                     showdata = tempdata.mid(0,2) + "." + tempdata.mid(2,4)+ "\n";
@@ -401,14 +411,11 @@ void SerialPortAssistant::receive(void)
         {
             if( listdisplay[16] == "34" || listdisplay[16] == "48" || listdisplay[16] == "5c" || listdisplay[16] == "70")
             {
-                listdisplay[21] = QString::number((listdisplay[21].toInt(nullptr,16) - 0x33),16);
-                listdisplay[21] = QString("%1").arg(listdisplay[21].toInt(), 2, 10, QLatin1Char('0'));
-                listdisplay[20] = QString::number((listdisplay[20].toInt(nullptr,16) - 0x33),16);
-                listdisplay[20] = QString("%1").arg(listdisplay[20].toInt(), 2, 10, QLatin1Char('0'));
-                listdisplay[19] = QString::number((listdisplay[19].toInt(nullptr,16) - 0x33),16);
-                listdisplay[19] = QString("%1").arg(listdisplay[19].toInt(), 2, 10, QLatin1Char('0'));
-                listdisplay[18] = QString::number((listdisplay[18].toInt(nullptr,16) - 0x33),16);
-                listdisplay[18] = QString("%1").arg(listdisplay[18].toInt(), 2, 10, QLatin1Char('0'));
+                listdisplay[21] = Qstringtransform(listdisplay[21]);
+                listdisplay[20] = Qstringtransform(listdisplay[20]);
+                listdisplay[19] = Qstringtransform(listdisplay[19]);
+                listdisplay[18] = Qstringtransform(listdisplay[18]);
+
                 QString showdata = listdisplay[21] + listdisplay[20] + listdisplay[19] + "." + listdisplay[18]+"\n";
 
                 insertDataDisplay_(showdata,ui->doubleColor->isChecked() ? Qt::blue : Qt::black);
@@ -420,13 +427,14 @@ void SerialPortAssistant::receive(void)
         }
         //else if()
     }
-    //用于读取温湿度,分了10段或者是11段来读取温湿度
-    else if(flag == 10 || flag == 11)
+    //用于读取温湿度,分了10段或者是11段来读取温湿度 分了11段或是12段来读取总累计时间总累计次数
+    else if(flag == 10 || flag == 11 || flag ==12)
     {
         QStringList listdisplay = enddisplay.split(" ");
-        //qDebug()<< "listdisplayt:"<<listdisplay;
-        //qDebug()<< "listdisplay.count:"<<listdisplay.count();
+        qDebug()<< "listdisplayt:"<<listdisplay;
+        qDebug()<< "listdisplay.count:"<<listdisplay.count();
         int tep,hum;
+        QString A,B,C;
         if(listdisplay.count() == 34 && listdisplay[16] == "3a")
         {
             listdisplay[18] = QString::number((listdisplay[18].toInt(nullptr,16) - 0x33),16);
@@ -448,6 +456,77 @@ void SerialPortAssistant::receive(void)
             listdisplay.clear();
             flag = 0;
         }
+        if(listdisplay.count() == 40 && listdisplay[15] == "33"  && listdisplay[14] == "33")
+        {
+            //电表返回数据为18-35,转换为十进制后逆向为需要的数据
+            for(int i =18;i<36;i++)
+            {
+                listdisplay[i] = Qstringtransform(listdisplay[i]);
+            }
+
+            //根据数据标识DI2来判断读出的是哪种事件
+            if(listdisplay[16] == "34")
+            {
+                A = "A相失压总次数:";
+                B = "B相失压总次数:";
+                C = "C相失压总次数:";
+            }
+            else if(listdisplay[16] == "35")
+            {
+                A = "A相欠压总次数:";
+                B = "B相欠压总次数:";
+                C = "C相欠压总次数:";
+            }
+            else if(listdisplay[16] == "36")
+            {
+                A = "A相过压总次数:";
+                B = "B相过压总次数:";
+                C = "C相过压总次数:";
+            }
+            else if(listdisplay[16] == "37")
+            {
+                A = "A相断相总次数:";
+                B = "B相断相总次数:";
+                C = "C相断相总次数:";
+            }
+            else if(listdisplay[16] == "3e")
+            {
+                A = "A相失流总次数:";
+                B = "B相失流总次数:";
+                C = "C相失流总次数:";
+            }
+            else if(listdisplay[16] == "35")
+            {
+                A = "A相欠压总次数:";
+                B = "B相欠压总次数:";
+                C = "C相欠压总次数:";
+            }
+            else if(listdisplay[16] == "3f")
+            {
+                A = "A相过流总次数:";
+                B = "B相过流总次数:";
+                C = "C相过流总次数:";
+            }
+            else if(listdisplay[16] == "40")
+            {
+                A = "A相断流总次数:";
+                B = "B相断流总次数:";
+                C = "C相断流总次数:";
+            }
+
+
+            QString showdata = "\n" + A + listdisplay[35] + listdisplay[34] + listdisplay[33] + "次,"
+                    +"总累计时间:" + listdisplay[32] + listdisplay[31] + listdisplay[30] +"分\n" + B +
+                    listdisplay[29] + listdisplay[28] + listdisplay[27] + "次," + "总累计时间:" + listdisplay[26]
+                    + listdisplay[25] + listdisplay[24] + "分\n" + C + listdisplay[23] + listdisplay[22]
+                    + listdisplay[21] + "次," + "总累计时间:" + listdisplay[20] + listdisplay[19] + listdisplay[18]+"分\n";
+
+            insertDataDisplay_(showdata,ui->doubleColor->isChecked() ? Qt::blue : Qt::black);
+            showdata.clear();
+            listdisplay.clear();
+            flag = 0;
+            enddisplay.clear();
+        }
     }
     //用于读取软件版本,分了16段或者是17段来读取软件版本
     else if(flag == 15 || flag == 16 || flag == 17)
@@ -457,7 +536,7 @@ void SerialPortAssistant::receive(void)
         //qDebug()<< "listdisplayt:"<<listdisplay;
         //qDebug()<< "listdisplay.count:"<<listdisplay.count();
         //软件版本接受数据长度为54
-        if(listdisplay.count() == 54  )
+        if(listdisplay.count() == 54 && listdisplay[16] == "b3" )
         {
             for(int i = 0; i< 32 ;i++)
             {
@@ -480,12 +559,55 @@ void SerialPortAssistant::receive(void)
             flag = 0;
         }
     }
-    else if(flag == 18)
+    //主要为获取事件记录的数据
+    else if(flag > 17)
     {
-        flag = 0;
-        enddisplay.clear();
-    }
+        QStringList listdisplay = enddisplay.split(" ");
+        qDebug()<< "listdisplayt:"<<listdisplay;
+        qDebug()<< "listdisplay.count:"<<listdisplay.count();
+        //失压事件返回的数据长度为105个字节
+        if(listdisplay.count() == 105)
+        {
+            //将返回的数据内容做处理 从18开始为需要拿到的数据
+            for(int i = 18;i<102;i++)
+            {
+                listdisplay[i] = Qstringtransform(listdisplay[i]);
+            }
+            //拼接需要得到的字符串
+            QString showdata = "\n发生时刻:" + getvalue(listdisplay,100,6,0) + "\n结束时刻:" + getvalue(listdisplay,100-6,6,0)
+                    + "\n失压期间正向有功总电能增量:" + getvalue(listdisplay,100-6*2,4,6) + "\n失压期间反向有功总电能增量:" + getvalue(listdisplay,100-6*2-4,4,6)
+                    + "\n失压期间A相正向有功电能增量:" +  getvalue(listdisplay,100-6*2-4*2,4,6) + "\n失压期间A相反向有功电能增量:" + getvalue(listdisplay,100-6*2-4*3,4,6)
+                    + "\n失压时刻A相电压:" + getvalue(listdisplay,100-6*2-4*4,2,3) + "\n失压时刻A相电流:" +  getvalue(listdisplay,100-6*2-4*4-2,3,3)
+                    + "\n失压时刻A相有功功率:" + getvalue(listdisplay,100-6*2-4*4-2-3,3,2) + "\n失压时刻A相无功功率:" + getvalue(listdisplay,100-6*2-4*4-2-3*2,3,2)
+                    + "\n失压时刻A相功率因数:" + getvalue(listdisplay,100-6*2-4*4-2-3*3,2,1) + "\n失压期间B相正向有功电能增量:" + getvalue(listdisplay,100-6*2-4*4-2-3*3-2,4,6)
+                    + "\n失压期间B相反向有功电能增量:" + getvalue(listdisplay,100-6*2-4*4-2-3*3-2-4,4,6) + "\n失压时刻B相电压:" + getvalue(listdisplay,100-6*2-4*4-2-3*3-2-4*2,2,3)
+                    + "\n失压时刻B相电流:" + getvalue(listdisplay,100-6*2-4*4-2-3*3-2-4*2-2,3,3) + "\n失压时刻B相有功功率:" + getvalue(listdisplay,100-6*2-4*4-2-3*3-2-4*2-2-3,3,2)
+                    + "\n失压时刻B相无功功率:" + getvalue(listdisplay,100-6*2-4*4-2-3*3-2-4*2-2-3*2,3,2) + "\n失压时刻B相功率因数:" + getvalue(listdisplay,100-6*2-4*4-2-3*3-2-4*2-2-3*3,2,1)
+                    + "\n失压期间C相正向有功电能增量:" + getvalue(listdisplay,100-6*2-4*4-2-3*3-2-4*2-2-3*3-2,4,6) + "\n失压期间C相反向有功电能增量:" + getvalue(listdisplay,100-6*2-4*4-2-3*3-2-4*2-2-3*3-2-4,4,6)
+                    + "\n失压时刻C相电压:" + getvalue(listdisplay,100-6*2-4*4-2-3*3-2-4*2-2-3*3-2-4*2,2,3) + "\n失压时刻C相电流:" + getvalue(listdisplay,100-6*2-4*4-2-3*3-2-4*2-2-3*3-2-4*2-2,3,3)
+                    + "\n失压时刻C相有功功率:" + getvalue(listdisplay,100-6*2-4*4-2-3*3-2-4*2-2-3*3-2-4*2-2-3,3,2) + "\n失压时刻C相无功功率:" + getvalue(listdisplay,100-6*2-4*4-2-3*3-2-4*2-2-3*3-2-4*2-2-3*2,3,2)
+                    + "\n失压时刻C相功率因数:" + getvalue(listdisplay,100-6*2-4*4-2-3*3-2-4*2-2-3*3-2-4*2-2-3*3,2,1) + "\n";
 
+            if(listdisplay[16] == "35")
+                showdata.replace("失压","欠压");
+            if(listdisplay[16] == "36")
+                showdata.replace("失压","过压");
+            if(listdisplay[16] == "37")
+                showdata.replace("失压","断相");
+            if(listdisplay[16] == "3e")
+                showdata.replace("失压","失流");
+            if(listdisplay[16] == "3f")
+                showdata.replace("失压","过流");
+            if(listdisplay[16] == "40")
+                showdata.replace("失压","断流");
+
+            insertDataDisplay_(showdata,ui->doubleColor->isChecked() ? Qt::blue : Qt::black);
+            showdata.clear();
+            listdisplay.clear();
+            flag = 0;
+            enddisplay.clear();
+        }
+    }
 }
 
 /* Start send. */

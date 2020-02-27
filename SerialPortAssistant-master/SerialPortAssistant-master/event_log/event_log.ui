@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -27,13 +27,6 @@
      <widget class="QPushButton" name="pushButton">
       <property name="text">
        <string>失压记录</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QPushButton" name="breakcurrent">
-      <property name="text">
-       <string>断流记录</string>
       </property>
      </widget>
     </item>
@@ -51,13 +44,6 @@
       </property>
      </widget>
     </item>
-    <item row="1" column="1">
-     <widget class="QPushButton" name="losscurrent">
-      <property name="text">
-       <string>失流记录</string>
-      </property>
-     </widget>
-    </item>
     <item row="1" column="2">
      <widget class="QPushButton" name="currentimbalance">
       <property name="text">
@@ -69,13 +55,6 @@
      <widget class="QPushButton" name="Overvoltage">
       <property name="text">
        <string>过压记录</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="1">
-     <widget class="QPushButton" name="overload">
-      <property name="text">
-       <string>过载记录</string>
       </property>
      </widget>
     </item>
@@ -94,16 +73,37 @@
      </widget>
     </item>
     <item row="3" column="1">
+     <widget class="QPushButton" name="overload">
+      <property name="text">
+       <string>过载记录</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="2">
      <widget class="QPushButton" name="powerdown">
       <property name="text">
        <string>掉电记录</string>
       </property>
      </widget>
     </item>
-    <item row="3" column="2">
+    <item row="1" column="1">
      <widget class="QPushButton" name="overcurrent">
       <property name="text">
        <string>过流记录</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QPushButton" name="breakcurrent">
+      <property name="text">
+       <string>断流记录</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QPushButton" name="losscurrent">
+      <property name="text">
+       <string>失流记录</string>
       </property>
      </widget>
     </item>
