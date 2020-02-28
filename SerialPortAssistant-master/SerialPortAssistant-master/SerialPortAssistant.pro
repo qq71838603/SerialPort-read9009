@@ -60,7 +60,10 @@ FORMS    += serialportassistant.ui \
     event/qualified_rateofvoltage.ui \
     event/powerdown.ui
 
+
 CONFIG += c++11
 
 RESOURCES += \
     rsc.qrc
+
+DISTFILES +=

@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>rsc/help.html</file>
+        <file>rsc/dianbiao.png</file>
     </qresource>
 </RCC>

@@ -158,8 +158,6 @@ void SerialPortAssistant::insertDataDisplay_(const QString& text, const QColor& 
     scroll->setSliderPosition(scroll->maximum());
 }
 
-
-
 /* Open or close the serial port. */
 void SerialPortAssistant::switchSerialPort(void)
 {
@@ -285,8 +283,8 @@ void SerialPortAssistant::receive(void)
     qDebug()<< "listdisplayt:"<<listdisplay;
     qDebug()<< "listdisplay.count:"<<listdisplay.count();
 
-    //用于读取接收到的电压,功率因数,电流,有功功率,无功功率,视在功率,正向有功总电能,三相正向有功电能,数据分为多段,平均7-8次发送完全部数据
-    if(flag == 6 || flag == 7 || flag == 8)
+    //用于读取接收到的电压,功率因数,电流,有功功率,无功功率,视在功率,正向有功总电能,三相正向有功电能,三相过载,数据分为多段,平均7-8次发送完全部数据,三相过载为8-9次
+    if(flag == 6 || flag == 7 || flag == 8 || flag ==9)
     {
         QStringList listdisplay = enddisplay.split(" ");
         //qDebug()<< "listdisplayt:"<<listdisplay;
@@ -423,7 +421,25 @@ void SerialPortAssistant::receive(void)
                 flag = 0;
             }
         }
-        //else if()
+        //三相过载返回数据为28字节
+        else if(listdisplay.count() == 28)
+        {
+            if(listdisplay[16] == "42" && listdisplay[14] == "33")
+            {
+                for(int i = 18;i<24;i++)
+                {
+                    listdisplay[i] = Qstringtransform(listdisplay[i]);
+                }
+
+                QString showdata =  getvalue(listdisplay,23,6,0) + "\n";
+
+                insertDataDisplay_(showdata,ui->doubleColor->isChecked() ? Qt::blue : Qt::black);
+                enddisplay.clear();
+                showdata.clear();
+                listdisplay.clear();
+                flag = 0;
+            }
+        }
     }
     //用于读取温湿度,掉电发生时刻事件,分了10段或者是11段来读取温湿度,掉电发生时刻事件,分了11段或是12段来读取总累计时间总累计次数
     else if(flag == 10 || flag == 11 || flag ==12)
@@ -586,18 +602,18 @@ void SerialPortAssistant::receive(void)
             }
 
             //拼接需要得到的字符串
-            showdata ="\nA相电压监测时间:" + getvalue(listdisplay,44,3,0) + "\nA相电压合格率:" + getvalue(listdisplay,44-3,2,2) + "\nA相电压超限率:" + getvalue(listdisplay,44-3-2,2,2)
-                    + "\nA相电压超上限时间:" + getvalue(listdisplay,44-3-2-2,3,0) + "\nA相电压超下限时间:" + getvalue(listdisplay,44-3-2-2-3,3,0) + "\nA相最高电压:" + getvalue(listdisplay,44-3-2-2-3-3,2,3)
-                    + "\nA相最高电压出现时间:" + getvalue(listdisplay,44-3-2-2-3-3-2,4,0) + "\nA相最低电压:" + getvalue(listdisplay,44-3-2-2-3-3-2-4,2,3) + "\nA相最低电压出现时间:"+ getvalue(listdisplay,44-3-2-2-3-3-2-4-2,4,0)
+            showdata ="\nA相电压监测时间:" + getvalue(listdisplay,44,3,0) + "\nA相电压合格率:" + getvalue(listdisplay,44-3,3,4) + "\nA相电压超限率:" + getvalue(listdisplay,44-3-3,3,4)
+                    + "\nA相电压超上限时间:" + getvalue(listdisplay,44-3-3-3,3,0) + "\nA相电压超下限时间:" + getvalue(listdisplay,44-3-3-3-3,3,0) + "\nA相最高电压:" + getvalue(listdisplay,44-3-3-3-3-3,2,3)
+                    + "\nA相最高电压出现时间:" + getvalue(listdisplay,44-3-3-3-3-3-2,4,0) + "\nA相最低电压:" + getvalue(listdisplay,44-3-3-3-3-3-2-4,2,3) + "\nA相最低电压出现时间:"+ getvalue(listdisplay,44-3-3-3-3-3-2-4-2,4,0)
                     +"\n";
 
             //这几个事件返回的数据均为相同的处理方式,因此直接替换字符
             if(listdisplay[15] == "33")
                 showdata.replace("A相","");
             if(listdisplay[15] == "35")
-                showdata.replace("A","B");
+                showdata.replace("A相","B相");
             if(listdisplay[15] == "36")
-                showdata.replace("A","C");
+                showdata.replace("A相","C相");
 
             insertDataDisplay_(showdata,ui->doubleColor->isChecked() ? Qt::blue : Qt::black);
             showdata.clear();
@@ -606,12 +622,38 @@ void SerialPortAssistant::receive(void)
             enddisplay.clear();
         }
     }
-    //主要用于获取失压,欠压,过压,断相,失流,过流,断流事件记录的数据
+    //主要用于获取失压,欠压,过压,断相,失流,过流,断流,过载事件记录的数据
     else if(flag > 17)
     {
         QStringList listdisplay = enddisplay.split(" ");
+        QString showdata;
         qDebug()<< "listdisplayt:"<<listdisplay;
         qDebug()<< "listdisplay.count:"<<listdisplay.count();
+        //过载事件返回的数据长度为66个字节
+        if(listdisplay.count() == 66 && listdisplay[16] == "42")
+        {
+            for(int i = 18;i<62;i++)
+            {
+                listdisplay[i] = Qstringtransform(listdisplay[i]);
+            }
+            showdata = "\n发生时刻:" + getvalue(listdisplay,61,6,0) + "\n结束时刻:" + getvalue(listdisplay,61-6,6,0)
+                    + "\nA相过载期间正向有功总电能增量" + getvalue(listdisplay,61-6*2,4,6) + "\nA相过载期间反向有功总电能增量:" + getvalue(listdisplay,61-6*2-4,4,6)
+                    + "\nA相过载期间A相正向有功电能增量:" + getvalue(listdisplay,61-6*2-4*2,4,6) + "\nA相过载期间A相反向有功电能增量:" + getvalue(listdisplay,61-6*2-4*3,4,6)
+                    + "\nA相过载期间B相正向有功电能增量:" + getvalue(listdisplay,61-6*2-4*4,4,6) + "\nA相过载期间B相反向有功电能增量:" + getvalue(listdisplay,61-6*2-4*5,4,6)
+                    + "\nA相过载期间C相正向有功电能增量:" + getvalue(listdisplay,61-6*2-4*6,4,6) + "\nA相过载期间C相反向有功电能增量:" + getvalue(listdisplay,61-6*2-4*7,4,6)
+                    + "\n";
+
+            if(listdisplay[15] == "35")
+                showdata.replace("A相过载","B相过载");
+            if(listdisplay[15] == "36")
+                showdata.replace("A相过载","C相过载");
+
+            insertDataDisplay_(showdata,ui->doubleColor->isChecked() ? Qt::blue : Qt::black);
+            showdata.clear();
+            listdisplay.clear();
+            flag = 0;
+            enddisplay.clear();
+        }
         //失压,欠压,过压,断相,失流,过流,断流事件返回的数据长度为105个字节
         if(listdisplay.count() == 105)
         {
@@ -621,7 +663,7 @@ void SerialPortAssistant::receive(void)
                 listdisplay[i] = Qstringtransform(listdisplay[i]);
             }
             //拼接需要得到的字符串
-            QString showdata = "\n发生时刻:" + getvalue(listdisplay,100,6,0) + "\n结束时刻:" + getvalue(listdisplay,100-6,6,0)
+            showdata = "\n发生时刻:" + getvalue(listdisplay,100,6,0) + "\n结束时刻:" + getvalue(listdisplay,100-6,6,0)
                     + "\n失压期间正向有功总电能增量:" + getvalue(listdisplay,100-6*2,4,6) + "\n失压期间反向有功总电能增量:" + getvalue(listdisplay,100-6*2-4,4,6)
                     + "\n失压期间A相正向有功电能增量:" +  getvalue(listdisplay,100-6*2-4*2,4,6) + "\n失压期间A相反向有功电能增量:" + getvalue(listdisplay,100-6*2-4*3,4,6)
                     + "\n失压时刻A相电压:" + getvalue(listdisplay,100-6*2-4*4,2,3) + "\n失压时刻A相电流:" +  getvalue(listdisplay,100-6*2-4*4-2,3,3)
