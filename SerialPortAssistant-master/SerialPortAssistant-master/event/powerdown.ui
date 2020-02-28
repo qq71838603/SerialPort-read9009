@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>213</width>
+    <height>237</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,14 +16,37 @@
   <widget class="QPushButton" name="Apowerdown">
    <property name="geometry">
     <rect>
-     <x>130</x>
-     <y>20</y>
-     <width>111</width>
+     <x>10</x>
+     <y>10</y>
+     <width>191</width>
      <height>23</height>
     </rect>
    </property>
    <property name="text">
     <string>掉电总次数</string>
+   </property>
+  </widget>
+  <widget class="QComboBox" name="comboBox">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>40</y>
+     <width>191</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="query_button">
+   <property name="geometry">
+    <rect>
+     <x>130</x>
+     <y>210</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>查询</string>
    </property>
   </widget>
  </widget>

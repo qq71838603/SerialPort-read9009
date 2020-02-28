@@ -268,14 +268,12 @@ void SerialPortAssistant::receive(void)
     }
 
     //修改bug,只用一个display在实现换行功能会出现多余字符导致错误
-    /* Add newline to show. */
+    //是否换行
     if(ui->autoNewLine->isChecked())
     {
         ndisplay += "\n";
-        /* Show the data received. */
         insertDataDisplay(ndisplay,ui->doubleColor->isChecked() ? Qt::blue : Qt::black);
     }
-    /* Show the data received. */
     else
         insertDataDisplay(display,ui->doubleColor->isChecked() ? Qt::blue : Qt::black);
 
@@ -287,7 +285,7 @@ void SerialPortAssistant::receive(void)
     qDebug()<< "listdisplayt:"<<listdisplay;
     qDebug()<< "listdisplay.count:"<<listdisplay.count();
 
-    //接受到的数据分为多段,平均7-8次发送完全部数据
+    //用于读取接收到的电压,功率因数,电流,有功功率,无功功率,视在功率,正向有功总电能,三相正向有功电能,数据分为多段,平均7-8次发送完全部数据
     if(flag == 6 || flag == 7 || flag == 8)
     {
         QStringList listdisplay = enddisplay.split(" ");
@@ -427,7 +425,7 @@ void SerialPortAssistant::receive(void)
         }
         //else if()
     }
-    //用于读取温湿度,分了10段或者是11段来读取温湿度 分了11段或是12段来读取总累计时间总累计次数
+    //用于读取温湿度,掉电发生时刻事件,分了10段或者是11段来读取温湿度,掉电发生时刻事件,分了11段或是12段来读取总累计时间总累计次数
     else if(flag == 10 || flag == 11 || flag ==12)
     {
         QStringList listdisplay = enddisplay.split(" ");
@@ -456,7 +454,26 @@ void SerialPortAssistant::receive(void)
             listdisplay.clear();
             flag = 0;
         }
-        if(listdisplay.count() == 40 && listdisplay[15] == "33"  && listdisplay[14] == "33")
+        //用于读取掉电发生时刻事件
+        if(listdisplay.count() == 34 && listdisplay[16] == "44")
+        {
+            //将返回的数据内容做处理 从18开始为需要拿到的数据
+            for(int i = 18;i<30;i++)
+            {
+                listdisplay[i] = Qstringtransform(listdisplay[i]);
+            }
+
+            QString showdata = getvalue(listdisplay,29,12,12) + "\n";
+
+            insertDataDisplay_(showdata,ui->doubleColor->isChecked() ? Qt::blue : Qt::black);
+            enddisplay.clear();
+            showdata.clear();
+            listdisplay.clear();
+            flag = 0;
+        }
+
+        //用于读取总累计时间总累计次数,listdisplay[16] != "43"避免与（本月）电压合格率统计数据冲突
+        if(listdisplay.count() == 40 && listdisplay[15] == "33"  && listdisplay[14] == "33" && listdisplay[16] != "43")
         {
             //电表返回数据为18-35,转换为十进制后逆向为需要的数据
             for(int i =18;i<36;i++)
@@ -528,13 +545,14 @@ void SerialPortAssistant::receive(void)
             enddisplay.clear();
         }
     }
-    //用于读取软件版本,分了16段或者是17段来读取软件版本
-    else if(flag == 15 || flag == 16 || flag == 17)
+    //用于读取软件版本与电压合格率数据统计,分了14段或者是15段来读取数据合格率统计,分了16段或者是17段来读取软件版本
+    else if(flag == 14 || flag == 15 || flag == 16 || flag == 17)
     {
         QStringList listdisplay = enddisplay.split(" ");
         QString showdata,reservedata;
         //qDebug()<< "listdisplayt:"<<listdisplay;
         //qDebug()<< "listdisplay.count:"<<listdisplay.count();
+
         //软件版本接受数据长度为54
         if(listdisplay.count() == 54 && listdisplay[16] == "b3" )
         {
@@ -558,18 +576,47 @@ void SerialPortAssistant::receive(void)
             enddisplay.clear();
             flag = 0;
         }
+        //用于读取电压合格率统计数据
+        if(listdisplay.count() == 49 && listdisplay[16] == "43" )
+        {
+            //将返回的数据内容做处理 从18开始为需要拿到的数据
+            for(int i = 18;i<45;i++)
+            {
+                listdisplay[i] = Qstringtransform(listdisplay[i]);
+            }
+
+            //拼接需要得到的字符串
+            showdata ="\nA相电压监测时间:" + getvalue(listdisplay,44,3,0) + "\nA相电压合格率:" + getvalue(listdisplay,44-3,2,2) + "\nA相电压超限率:" + getvalue(listdisplay,44-3-2,2,2)
+                    + "\nA相电压超上限时间:" + getvalue(listdisplay,44-3-2-2,3,0) + "\nA相电压超下限时间:" + getvalue(listdisplay,44-3-2-2-3,3,0) + "\nA相最高电压:" + getvalue(listdisplay,44-3-2-2-3-3,2,3)
+                    + "\nA相最高电压出现时间:" + getvalue(listdisplay,44-3-2-2-3-3-2,4,0) + "\nA相最低电压:" + getvalue(listdisplay,44-3-2-2-3-3-2-4,2,3) + "\nA相最低电压出现时间:"+ getvalue(listdisplay,44-3-2-2-3-3-2-4-2,4,0)
+                    +"\n";
+
+            //这几个事件返回的数据均为相同的处理方式,因此直接替换字符
+            if(listdisplay[15] == "33")
+                showdata.replace("A相","");
+            if(listdisplay[15] == "35")
+                showdata.replace("A","B");
+            if(listdisplay[15] == "36")
+                showdata.replace("A","C");
+
+            insertDataDisplay_(showdata,ui->doubleColor->isChecked() ? Qt::blue : Qt::black);
+            showdata.clear();
+            listdisplay.clear();
+            flag = 0;
+            enddisplay.clear();
+        }
     }
-    //主要为获取事件记录的数据
+    //主要用于获取失压,欠压,过压,断相,失流,过流,断流事件记录的数据
     else if(flag > 17)
     {
         QStringList listdisplay = enddisplay.split(" ");
         qDebug()<< "listdisplayt:"<<listdisplay;
         qDebug()<< "listdisplay.count:"<<listdisplay.count();
-        //失压事件返回的数据长度为105个字节
+        //失压,欠压,过压,断相,失流,过流,断流事件返回的数据长度为105个字节
         if(listdisplay.count() == 105)
         {
             //将返回的数据内容做处理 从18开始为需要拿到的数据
-            for(int i = 18;i<102;i++)
+            for(int i = 18;i<101;i++)
             {
                 listdisplay[i] = Qstringtransform(listdisplay[i]);
             }
@@ -588,6 +635,7 @@ void SerialPortAssistant::receive(void)
                     + "\n失压时刻C相有功功率:" + getvalue(listdisplay,100-6*2-4*4-2-3*3-2-4*2-2-3*3-2-4*2-2-3,3,2) + "\n失压时刻C相无功功率:" + getvalue(listdisplay,100-6*2-4*4-2-3*3-2-4*2-2-3*3-2-4*2-2-3*2,3,2)
                     + "\n失压时刻C相功率因数:" + getvalue(listdisplay,100-6*2-4*4-2-3*3-2-4*2-2-3*3-2-4*2-2-3*3,2,1) + "\n";
 
+            //这几个事件返回的数据均为相同的处理方式,因此直接替换字符
             if(listdisplay[16] == "35")
                 showdata.replace("失压","欠压");
             if(listdisplay[16] == "36")
@@ -621,7 +669,6 @@ void SerialPortAssistant::send(void)
     {
         transmit();  //send once.
     }
-
 }
 
 /* Transmit data from serial port. */

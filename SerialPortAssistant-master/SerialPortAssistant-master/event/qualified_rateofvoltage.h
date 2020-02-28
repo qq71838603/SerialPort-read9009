@@ -19,9 +19,15 @@ signals:
     void  sendeventData(QString,QString);
 
 private slots:
-    void on_ABCqualified_rateofvoltage_clicked();
+
+    void on_query_button_clicked();
+
+    void on_query_button_2_clicked();
 
 private:
+
+    QString get_Check_code(QString DI3,QString DI2,QString DI1,QString DI0);
+
     Ui::qualified_rateofvoltage *ui;
 };
 
