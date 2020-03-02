@@ -284,12 +284,20 @@ void SerialPortAssistant::receive(void)
     qDebug()<< "listdisplay.count:"<<listdisplay.count();
 
     //用于读取接收到的电压,功率因数,电流,有功功率,无功功率,视在功率,正向有功总电能,三相正向有功电能,三相过载,数据分为多段,平均7-8次发送完全部数据,三相过载为8-9次
-    if(flag == 6 || flag == 7 || flag == 8 || flag ==9)
+    if(flag == 5 || flag == 6 || flag == 7 || flag == 8 || flag ==9)
     {
         QStringList listdisplay = enddisplay.split(" ");
         //qDebug()<< "listdisplayt:"<<listdisplay;
         //qDebug()<< "listdisplay.count:"<<listdisplay.count();
-        //电压,功率因数分割为了24个数据
+
+        //如果为错误码,返回数据为19字节,则清空数据
+        if(listdisplay.count() == 19 && listdisplay[12] == "d1")
+        {
+            flag = 0;
+            enddisplay.clear();
+            listdisplay.clear();
+        }
+        //电压,功率因数,电网频率返回数据为24个字节
         if(listdisplay.count() == 24)
         {
             QString tempdata,showdata;
@@ -326,7 +334,7 @@ void SerialPortAssistant::receive(void)
             //电网频率
             else if(listdisplay[16] == "b3" || listdisplay[16] == "B3")
             {
-                if(listdisplay[18] == "37")
+                if(listdisplay[14] == "35")
                 {
                     listdisplay[19] = Qstringtransform(listdisplay[19]);
                     listdisplay[18] = Qstringtransform(listdisplay[18]);
@@ -342,7 +350,7 @@ void SerialPortAssistant::receive(void)
                 }
             }
         }
-        //电流,有功功率,无功功率,视在功率分割为25个数据
+        //电流,零线电流,有功功率,无功功率,视在功率返回数据为25字节
         else if(listdisplay.count() == 25)
         {
             QString tempdata,showdata;
@@ -402,7 +410,7 @@ void SerialPortAssistant::receive(void)
                 }
             }
         }
-        //正向有功总电能,三相正向有功电能分割为了26个数据
+        //正向有功总电能,三相正向有功电能返回数据为26字节
         else if(listdisplay.count() == 26 && listdisplay[17] == "33" )
         {
             if( listdisplay[16] == "34" || listdisplay[16] == "48" || listdisplay[16] == "5c" || listdisplay[16] == "70")
@@ -421,7 +429,7 @@ void SerialPortAssistant::receive(void)
                 flag = 0;
             }
         }
-        //三相过载返回数据为28字节
+        //三相过载,电压不平衡总次数.总累计时间, 电流不平衡总次数，总累计时间返回数据为28字节
         else if(listdisplay.count() == 28)
         {
             if(listdisplay[16] == "42" && listdisplay[14] == "33")
@@ -439,6 +447,25 @@ void SerialPortAssistant::receive(void)
                 listdisplay.clear();
                 flag = 0;
             }
+            //3c 为电压不平衡 3d 为电流不平衡
+            if(listdisplay[16] == "3c" || listdisplay[16] == "3d" )
+            {
+                if(listdisplay[14] == "33")
+                {
+                    for(int i = 18;i<24;i++)
+                    {
+                        listdisplay[i] = Qstringtransform(listdisplay[i]);
+                    }
+
+                    QString showdata =  getvalue(listdisplay,23,6,6) + "\n";
+
+                    insertDataDisplay_(showdata,ui->doubleColor->isChecked() ? Qt::blue : Qt::black);
+                    enddisplay.clear();
+                    showdata.clear();
+                    listdisplay.clear();
+                    flag = 0;
+                }
+            }
         }
     }
     //用于读取温湿度,掉电发生时刻事件,分了10段或者是11段来读取温湿度,掉电发生时刻事件,分了11段或是12段来读取总累计时间总累计次数
@@ -447,8 +474,8 @@ void SerialPortAssistant::receive(void)
         QStringList listdisplay = enddisplay.split(" ");
         qDebug()<< "listdisplayt:"<<listdisplay;
         qDebug()<< "listdisplay.count:"<<listdisplay.count();
-        int tep,hum;
-        QString A,B,C;
+        int tep,hum; //温湿度
+        QString A,B,C; //三相总累计时间总累计次数
         if(listdisplay.count() == 34 && listdisplay[16] == "3a")
         {
             listdisplay[18] = QString::number((listdisplay[18].toInt(nullptr,16) - 0x33),16);

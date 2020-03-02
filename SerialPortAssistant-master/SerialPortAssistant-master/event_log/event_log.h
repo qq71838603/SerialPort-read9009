@@ -14,6 +14,8 @@
 #include "event/overload.h"
 #include "event/qualified_rateofvoltage.h"
 #include "event/powerdown.h"
+#include "event/voltageimbalance.h"
+#include "event/currentimbalance.h"
 
 namespace Ui {
 class Event_log;
@@ -40,7 +42,6 @@ public:
     overload * overload1;
     qualified_rateofvoltage * qualified_rateofvoltage1;
     powerdown * powerdown1;
-
 
 signals:
     void  sendData(QString,QString);
