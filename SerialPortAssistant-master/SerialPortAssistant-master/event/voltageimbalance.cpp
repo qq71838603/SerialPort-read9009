@@ -80,7 +80,7 @@ QString voltageimbalance::get_Check_code(QString DI3,QString DI2,QString DI1,QSt
     QString check = tr("%1").arg(checknum);
     check = QString::number((check.toInt(nullptr,10)),16);
     //组装查询码
-    QString Query_command = "68 11 11 11 11 11 11 68 11 04 "+ DI0 +" " + DI1+" " + DI2+" " + DI3+" " + check +" 16";
+    QString Query_command = "68 11 11 11 11 11 11 68 11 04 " + DI0 + " " + DI1 + " " + DI2 + " " + DI3 + " " + check + " 16";
     //qDebug()<<"Query_command is :"<<Query_command;
     return Query_command;
 }

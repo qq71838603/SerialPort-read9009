@@ -1,0 +1,1 @@
+D:\Qt\Qt5.13.2\5.13.2\mingw73_32\bin\windeployqt.exe SerialPortAssistant.exe
