@@ -43,7 +43,7 @@ public:
     bool sleep(int msec);
     QString enddisplay;
     int flag = 0;
-
+    int testflag = 0;
     Event_log *v;
 
 

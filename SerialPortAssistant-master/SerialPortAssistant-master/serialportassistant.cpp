@@ -282,7 +282,19 @@ void SerialPortAssistant::receive(void)
     QStringList listdisplay = enddisplay.split(" ");
     qDebug()<< "listdisplayt:"<<listdisplay;
     qDebug()<< "listdisplay.count:"<<listdisplay.count();
-
+    /*
+    if(testflag == 0)
+    {
+        testflag =1;
+        sleep(100);
+        on_A_Voltage_clicked();
+    }*/
+    if(listdisplay[0] != "fe" )
+    {
+        enddisplay.clear();
+        listdisplay.clear();
+        flag = 0;
+    }
     //用于读取接收到的电压,功率因数,电流,有功功率,无功功率,视在功率,正向有功总电能,三相正向有功电能,三相过载,数据分为多段,平均7-8次发送完全部数据,三相过载为8-9次
     if(flag == 5 || flag == 6 || flag == 7 || flag == 8 || flag ==9)
     {
@@ -1301,11 +1313,12 @@ void SerialPortAssistant::Handle_data(QString& text1,const QString& text2)
         QMessageBox::warning(this, tr("Error"), QString::fromLocal8Bit("串口未打开，发送失败"), QMessageBox::Ok);
         return;
     }
+    qDebug()<<"text1 is "<<text1;
 
     QRegExp regExp(" *([0-9A-Fa-f]{2} +)+[0-9A-Fa-f]{2} *");
     if(regExp.exactMatch(text1))
     {
-        /* Convert every 2 characters to hexadecimal. */
+        //每2个字符转换为十六进制
         QStringList dataList = text1.split(QRegExp(" +"));
         QString newData,showData;
         //修改时间显示bug,删除从recive中实现,改为发送信息就提示时间
@@ -1318,26 +1331,30 @@ void SerialPortAssistant::Handle_data(QString& text1,const QString& text2)
             showData += i + " ";
             int n = i.toInt(nullptr,16);
             newData += text1.sprintf("%c",static_cast<char>(n));
+            //qDebug()<<"newData is "<<newData;
         }
-        /* Transmit data. */
+
+        //qDebug()<<"dataList is "<<dataList;
+        //qDebug()<<"newData.toStdString().c_str() is "<<newData.toStdString().c_str();
+
+        //发送数据
         if(port->write(newData.toStdString().c_str()) == -1)
         {
             statusBar()->showMessage("Send data failed : "+ port->errorString());
             return;
         }
-
-        /* Add time to show. */
+        //添加打印时间
         if(ui->showTime->isChecked())
         {
             QDateTime time = QDateTime::currentDateTime();
             showData ="\n"+ time.toString("yyyy-MM-dd hh:mm:ss") + " : " + showData;
         }
-        /* Add newline to show. */
+        //添加新的一行
         if(ui->autoNewLine->isChecked())
         {
             showData += "\n";
         }
-        /* Show data. */
+        //显示信息在两个文本框内
         showData += "\n";
         insertDataDisplay(showData,ui->doubleColor->isChecked() ? Qt::green : Qt::black);
         insertDataDisplay_(text2,ui->doubleColor->isChecked() ? Qt::blue : Qt::black);

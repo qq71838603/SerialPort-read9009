@@ -29,16 +29,16 @@ public:
     {
         if (qualified_rateofvoltage->objectName().isEmpty())
             qualified_rateofvoltage->setObjectName(QString::fromUtf8("qualified_rateofvoltage"));
-        qualified_rateofvoltage->resize(248, 347);
+        qualified_rateofvoltage->resize(248, 361);
         query_button = new QPushButton(qualified_rateofvoltage);
         query_button->setObjectName(QString::fromUtf8("query_button"));
-        query_button->setGeometry(QRect(170, 320, 75, 23));
+        query_button->setGeometry(QRect(170, 330, 75, 23));
         comboBox = new QComboBox(qualified_rateofvoltage);
         comboBox->setObjectName(QString::fromUtf8("comboBox"));
-        comboBox->setGeometry(QRect(10, 180, 231, 22));
+        comboBox->setGeometry(QRect(10, 190, 231, 22));
         query_button_2 = new QPushButton(qualified_rateofvoltage);
         query_button_2->setObjectName(QString::fromUtf8("query_button_2"));
-        query_button_2->setGeometry(QRect(170, 150, 75, 23));
+        query_button_2->setGeometry(QRect(170, 160, 75, 23));
         comboBox_2 = new QComboBox(qualified_rateofvoltage);
         comboBox_2->setObjectName(QString::fromUtf8("comboBox_2"));
         comboBox_2->setGeometry(QRect(10, 10, 231, 22));
