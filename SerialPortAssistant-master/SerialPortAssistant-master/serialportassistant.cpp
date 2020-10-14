@@ -280,8 +280,10 @@ void SerialPortAssistant::receive(void)
     enddisplay += display;
 
     QStringList listdisplay = enddisplay.split(" ");
+    qDebug()<< "111111111111111111111111";
     qDebug()<< "listdisplayt:"<<listdisplay;
     qDebug()<< "listdisplay.count:"<<listdisplay.count();
+
     /*
     if(testflag == 0)
     {
@@ -824,12 +826,17 @@ void SerialPortAssistant::transmitHexadecimal(void)
         QStringList dataList = data.split(QRegExp(" +"));
         QString newData,showData;
         showData += "\n发送信息->";
+
+        qDebug()<<"data is :"<<data;
+
         foreach(const QString& i, dataList)
         {
             showData += i + " ";
             int n = i.toInt(nullptr,16);
             newData += data.sprintf("%c",static_cast<char>(n));
         }
+
+        qDebug()<<"newData is :"<<newData;
 
         /* Transmit data. */
         if(port->write(newData.toStdString().c_str()) == -1)
@@ -1334,8 +1341,8 @@ void SerialPortAssistant::Handle_data(QString& text1,const QString& text2)
             //qDebug()<<"newData is "<<newData;
         }
 
-        //qDebug()<<"dataList is "<<dataList;
-        //qDebug()<<"newData.toStdString().c_str() is "<<newData.toStdString().c_str();
+        qDebug()<<"dataList is "<<dataList;
+        qDebug()<<"newData.toStdString().c_str() is "<<newData.toStdString().c_str();
 
         //发送数据
         if(port->write(newData.toStdString().c_str()) == -1)
